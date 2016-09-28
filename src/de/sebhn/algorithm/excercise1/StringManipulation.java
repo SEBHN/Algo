@@ -3,7 +3,8 @@ package de.sebhn.algorithm.excercise1;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Excercise 2
+ * Excercise 2 <br>
+ * Use -Xss258m to avoid stackOverflowErro
  * 
  * @author manuel
  *
