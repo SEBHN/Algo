@@ -29,7 +29,7 @@ public class StringManipulation {
   }
 
   private static void measureReverse(String someString) {
-    System.out.println("Lenght of String: " + someString.length());
+    System.out.println("Length of String: " + someString.length());
     long startRekm = System.nanoTime();
     rekm(someString);
     long durationRekm = System.nanoTime() - startRekm;
