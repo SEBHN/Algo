@@ -4,7 +4,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Excercise 2 <br>
- * Use -Xss258m to avoid stackOverflowErro
+ * Use -Xss258m to avoid stackOverflowError
  * 
  * @author manuel
  *
