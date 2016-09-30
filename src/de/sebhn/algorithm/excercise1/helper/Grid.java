@@ -14,9 +14,9 @@ public class Grid {
     this.targetNumber = targetNumber;
     size = targetNumber + 1;
     diagonal = new ArrayList<>();
-    internalGrid = new int[size][size];
-    for (int y = 0; y < size; y++) {
-      for (int x = 0; x < size; x++) {
+    internalGrid = new int[getSize()][getSize()];
+    for (int y = 0; y < getSize(); y++) {
+      for (int x = 0; x < getSize(); x++) {
         internalGrid[y][x] = 0;
         if (y == x) {
           getDiagonal().add(new Position(y, x));
@@ -35,8 +35,8 @@ public class Grid {
 
   public List<Position> getVisitedPaths() {
     List<Position> visitedPaths = new ArrayList<>();
-    for (int y = 0; y < size; y++) {
-      for (int x = 0; x < size; x++) {
+    for (int y = 0; y < getSize(); y++) {
+      for (int x = 0; x < getSize(); x++) {
         boolean visited = internalGrid[y][x] == 1;
         if (visited) {
           visitedPaths.add(new Position(x, y));
@@ -48,5 +48,13 @@ public class Grid {
 
   public int getTargetNumber() {
     return targetNumber;
+  }
+
+  public int[][] getInternalGrid() {
+    return internalGrid;
+  }
+
+  public int getSize() {
+    return size;
   }
 }

@@ -4,6 +4,7 @@ public class HelperStarter {
 
   public static void main(String[] args) {
     Grid grid = new Grid(3);
+    GridVisitor.createPossibleEdges(grid);
     GridVisitor.findPath(grid);
   }
 }
