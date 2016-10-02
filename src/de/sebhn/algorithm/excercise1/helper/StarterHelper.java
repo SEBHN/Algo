@@ -1,5 +1,7 @@
 package de.sebhn.algorithm.excercise1.helper;
 
+import de.sebhn.algorithm.excercise1.OutputCounter;
+
 public class StarterHelper {
 
   public static void main(String[] args) {
@@ -8,7 +10,9 @@ public class StarterHelper {
     Grid grid = new Grid(n);
     System.out.println("n=" + n);
     GraphMatrix matrix = GridVisitor.createPossibleEdges(grid);
-    GridVisitor.findPath(grid, matrix);
+    OutputCounter out = GridVisitor.findPath(grid, matrix);
+    out.printSize();
+    // outputCounter.printPaths(grid.getTargetNumber()); // uncomment to show paths
     System.out.println("duration: " + (System.currentTimeMillis() - start));
   }
 }

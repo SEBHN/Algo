@@ -10,15 +10,14 @@ import de.sebhn.algorithm.excercise1.helper.direction.Up;
 public class GridVisitor {
 
 
-  public static void findPath(Grid grid, GraphMatrix matrix) {
+  public static OutputCounter findPath(Grid grid, GraphMatrix matrix) {
     int startingPoint = grid.getConverter().convert(new Position(0, 0));
     int endPoint =
         grid.getConverter().convert(new Position(grid.getTargetNumber(), grid.getTargetNumber()));
     int size = grid.getSize();
     OutputCounter outputCounter = new OutputCounter(grid.getConverter());
     matrix.findAllPath(startingPoint, endPoint, new boolean[size * size], outputCounter);
-    outputCounter.printSize();
-    // outputCounter.printPaths(grid.getTargetNumber()); // uncomment to show paths
+    return outputCounter;
   }
 
   public static GraphMatrix createPossibleEdges(Grid grid) {
