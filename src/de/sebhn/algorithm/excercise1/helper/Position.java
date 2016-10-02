@@ -1,6 +1,7 @@
 package de.sebhn.algorithm.excercise1.helper;
 
 import java.security.InvalidParameterException;
+import java.util.Objects;
 
 /**
  * This class is responsible for the coordinates of the buttons
@@ -40,6 +41,20 @@ public class Position {
   @Override
   public String toString() {
     return "" + positionX + "," + positionY;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj instanceof Position) {
+      Position other = (Position) obj;
+      return getX() == other.getX() && getY() == other.getY();
+    }
+    return false;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(positionX, positionY);
   }
 
   public boolean isEqualsOrBiggerThan(Position other) {
