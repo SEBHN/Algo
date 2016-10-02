@@ -22,6 +22,7 @@ public class OutputCounter {
     this.positionToIntConverter = grid.getConverter();
     pathPrintingMakesSense = grid.getSize() < 50;
     intPositions = new ArrayList<>();
+    size = new BigInteger("0");
   }
 
   public void addStack(Stack<Integer> stack) {
