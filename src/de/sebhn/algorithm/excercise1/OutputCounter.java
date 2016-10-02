@@ -29,7 +29,7 @@ public class OutputCounter {
     if (pathPrintingMakesSense) {
       intPositions.addAll(stack);
     }
-    size.add(BigInteger.ONE);
+    size = size.add(BigInteger.ONE);
   }
 
   public void printSize() {
