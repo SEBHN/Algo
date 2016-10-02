@@ -9,6 +9,7 @@ public class Grid {
   private final int size;
   private final int[][] internalGrid;
   private final List<Position> diagonal;
+  private final PositionToIntConverter converter;
 
   public Grid(int targetNumber) {
     this.targetNumber = targetNumber;
@@ -23,6 +24,7 @@ public class Grid {
         }
       }
     }
+    converter = new PositionToIntConverter(this);
   }
 
   public void visit(int x, int y) {
@@ -56,5 +58,9 @@ public class Grid {
 
   public int getSize() {
     return size;
+  }
+
+  public PositionToIntConverter getConverter() {
+    return converter;
   }
 }
