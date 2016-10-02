@@ -1,6 +1,5 @@
 package de.sebhn.algorithm.excercise1.helper;
 
-import de.sebhn.algorithm.excercise1.helper.direction.GraphMatrix;
 import de.sebhn.algorithm.excercise1.helper.direction.LeftUp;
 import de.sebhn.algorithm.excercise1.helper.direction.Right;
 import de.sebhn.algorithm.excercise1.helper.direction.RightDown;

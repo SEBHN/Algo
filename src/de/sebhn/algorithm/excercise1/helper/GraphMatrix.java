@@ -1,15 +1,14 @@
-package de.sebhn.algorithm.excercise1.helper.direction;
+package de.sebhn.algorithm.excercise1.helper;
 
 import java.util.Stack;
 
 public class GraphMatrix {
 
   int[][] graph;
-  boolean[] visited;
 
   public GraphMatrix(int n) {
+
     graph = new int[n][n];
-    visited = new boolean[n];
 
     for (int i = 0; i < n; i++) {
       for (int j = 0; j < n; j++) {
@@ -19,12 +18,7 @@ public class GraphMatrix {
   }
 
   public void addEdge(int source, int target) {
-    if (graph != null)
-      try {
-        graph[source][target] = 1;
-      } catch (Exception ex) {
-        System.out.println("Invalid Argument Exception " + ex);
-      }
+    graph[source][target] = 1;
   }
 
 
@@ -69,7 +63,6 @@ public class GraphMatrix {
     if (adjNodes.length > 0) {
       for (int i = 0; i < adjNodes.length; i++) {
         if (visited[adjNodes[i]] != true) {
-
           findAllPath(graph, adjNodes[i], target, visited);
         }
       }

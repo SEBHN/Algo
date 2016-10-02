@@ -1,5 +1,7 @@
 package de.sebhn.algorithm.excercise1.helper.direction;
 
+import de.sebhn.algorithm.excercise1.helper.GraphMatrix;
+
 public class GraphMatrixTest {
 
   public static void main(String[] args) {
