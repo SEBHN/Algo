@@ -18,7 +18,7 @@ public class GridVisitor {
     OutputCounter outputCounter = new OutputCounter(grid.getConverter());
     matrix.findAllPath(startingPoint, endPoint, new boolean[size * size], outputCounter);
     outputCounter.printSize();
-    // outputCounter.printPaths(); // uncomment to show paths
+    // outputCounter.printPaths(grid.getTargetNumber()); // uncomment to show paths
   }
 
   public static GraphMatrix createPossibleEdges(Grid grid) {
