@@ -77,8 +77,6 @@ public class GraphMatrix {
   }
 
   private void printStack(Stack<Integer> stack, OutputCounter outputCounter) {
-    for (Integer position : stack) {
-      outputCounter.add(position);
-    }
+    outputCounter.addStack(stack);
   }
 }
