@@ -1,13 +1,16 @@
 package de.sebhn.algorithm.excercise1.helper;
 
 import java.util.Stack;
+import java.util.stream.Collectors;
 
 public class GraphMatrix {
 
-  private int[][] graph;
+  private final int[][] graph;
+  private final Stack<Integer> stack;
 
   public GraphMatrix(int n) {
     graph = new int[n][n];
+    stack = new Stack<Integer>();
 
     for (int i = 0; i < n; i++) {
       for (int j = 0; j < n; j++) {
@@ -45,13 +48,12 @@ public class GraphMatrix {
     return adjNodes;
   }
 
-  Stack<Integer> stack = new Stack<Integer>();
-
-  public void findAllPath(GraphMatrix graph, int source, int target, boolean[] visited) {
+  public void findAllPath(int source, int target, boolean[] visited,
+      PositionToIntConverter positionToIntConverter) {
     stack.add(source);
 
     if (source == target) {
-      printStack(stack);
+      printStack(stack, positionToIntConverter);
     }
 
     if (!visited[source]) {
@@ -65,7 +67,7 @@ public class GraphMatrix {
       for (int i = 0; i < adjNodes.length; i++) {
         int adjacentNode = adjNodes[i];
         if (!visited[adjacentNode]) {
-          findAllPath(graph, adjacentNode, target, visited);
+          findAllPath(adjacentNode, target, visited, positionToIntConverter);
         }
       }
     }
@@ -74,10 +76,11 @@ public class GraphMatrix {
     stack.remove(stack.size() - 1);
   }
 
-  private void printStack(Stack<Integer> stack) {
-    System.out.println("Print Path ");
-    for (Integer integer : stack) {
-      System.out.println(integer);
-    }
+  private void printStack(Stack<Integer> stack, PositionToIntConverter positionToIntConverter) {
+    // System.out.println(stack.size() + " Paths");
+    String path = stack.stream() //
+        .map(pathElement -> positionToIntConverter.deConvert(pathElement).toString()) //
+        .collect(Collectors.joining("->", "Path: ", ""));
+    System.out.println(path);
   }
 }

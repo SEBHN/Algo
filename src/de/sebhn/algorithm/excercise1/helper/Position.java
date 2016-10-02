@@ -1,6 +1,5 @@
 package de.sebhn.algorithm.excercise1.helper;
 
-import java.security.InvalidParameterException;
 import java.util.Objects;
 
 /**
@@ -18,10 +17,10 @@ public class Position {
 
   // Constructor
   public Position(int positionX, int positionY) {
-    if (positionX < 0 || positionY < 0) {
-      throw new InvalidParameterException(
-          "Position cant be negative x, y " + positionX + positionY);
-    }
+    // if (positionX < 0 || positionY < 0) {
+    // throw new InvalidParameterException(
+    // "Position cant be negative x, y " + positionX + positionY);
+    // }
     this.positionX = positionX;
     this.positionY = positionY;
   }

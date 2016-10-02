@@ -14,7 +14,7 @@ public class GraphMatrixTest {
     gm.addEdge(2, 0);
     gm.addEdge(2, 1);
 
-    gm.findAllPath(gm, 2, 3, new boolean[10]);
+    // gm.findAllPath(2, 3, new boolean[10]);
     System.exit(0);
   }
 }

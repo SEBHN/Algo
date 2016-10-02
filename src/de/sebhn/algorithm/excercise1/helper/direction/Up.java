@@ -8,14 +8,11 @@ public class Up implements Walkable {
 
   public static Position getNewPosition(Position currentPosition, Grid grid) {
     Position newPosition = new Position(currentPosition.getX(), currentPosition.getY() + 1);
-    if (isAllowedToWalk(newPosition)) {
-      return newPosition;
-    }
-    return currentPosition;
+    return newPosition;
   }
 
-  public static boolean isAllowedToWalk(Position newPosition) {
-    return Diagonal.isUnderOrOn(newPosition);
+  public static boolean isAllowedToWalk(Position currentPosition, Position newPosition, Grid grid) {
+    return Diagonal.isUnderOrOn(newPosition) && Diagonal.isUnderOrOn(currentPosition)
+        && grid.isInGrid(newPosition);
   }
-
 }

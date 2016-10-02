@@ -63,4 +63,13 @@ public class Grid {
   public PositionToIntConverter getConverter() {
     return converter;
   }
+
+  public boolean isInGrid(Position position) {
+    if (position.getX() > getTargetNumber() || position.getY() > getTargetNumber()) {
+      return false;
+    } else if (position.getX() < 0 || position.getY() < 0) {
+      return false;
+    }
+    return true;
+  }
 }
