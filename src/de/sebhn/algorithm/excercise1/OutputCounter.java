@@ -1,5 +1,6 @@
 package de.sebhn.algorithm.excercise1;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -12,7 +13,7 @@ public class OutputCounter {
 
   private final List<Integer> intPositions;
   private final PositionToIntConverter positionToIntConverter;
-  private int size;
+  private BigInteger size;
   private boolean pathPrintingMakesSense;
   private Grid grid;
 
@@ -27,7 +28,7 @@ public class OutputCounter {
     if (pathPrintingMakesSense) {
       intPositions.addAll(stack);
     }
-    size++;
+    size.add(BigInteger.ONE);
   }
 
   public void printSize() {
