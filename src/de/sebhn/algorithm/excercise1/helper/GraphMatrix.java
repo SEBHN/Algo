@@ -4,10 +4,9 @@ import java.util.Stack;
 
 public class GraphMatrix {
 
-  int[][] graph;
+  private int[][] graph;
 
   public GraphMatrix(int n) {
-
     graph = new int[n][n];
 
     for (int i = 0; i < n; i++) {
@@ -28,8 +27,9 @@ public class GraphMatrix {
     int nodeCount = 0;
 
     for (int i = 0; i < row.length; i++) {
-      if (row[i] == 1)
+      if (row[i] == 1) {
         nodeCount++;
+      }
     }
 
     adjNodes = new int[nodeCount];
@@ -54,16 +54,18 @@ public class GraphMatrix {
       printStack(stack);
     }
 
-    if (visited[source] != true)
+    if (!visited[source]) {
       visited[source] = true;
+    }
 
     int[] adjNodes = getAdjacentNodes(source);
 
 
     if (adjNodes.length > 0) {
       for (int i = 0; i < adjNodes.length; i++) {
-        if (visited[adjNodes[i]] != true) {
-          findAllPath(graph, adjNodes[i], target, visited);
+        int adjacentNode = adjNodes[i];
+        if (!visited[adjacentNode]) {
+          findAllPath(graph, adjacentNode, target, visited);
         }
       }
     }
