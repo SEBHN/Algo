@@ -24,7 +24,7 @@ public class PositionToIntConverter {
     return integer2PositionMap.get(pos);
   }
 
-  Position deConvert(int value) {
+  public Position deConvert(int value) {
     Set<Entry<Position, Integer>> entrySet = integer2PositionMap.entrySet();
     for (Entry<Position, Integer> entry : entrySet) {
       if (entry.getValue().intValue() == value) {
