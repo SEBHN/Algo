@@ -12,7 +12,7 @@ public class StarterHelper {
     GraphMatrix matrix = GridVisitor.createPossibleEdges(grid);
     OutputCounter out = GridVisitor.findPath(grid, matrix);
     out.printSize();
-    // outputCounter.printPaths(grid.getTargetNumber()); // uncomment to show paths
+    // out.printPaths(); // uncomment to show paths
     System.out.println("duration: " + (System.currentTimeMillis() - start));
   }
 }

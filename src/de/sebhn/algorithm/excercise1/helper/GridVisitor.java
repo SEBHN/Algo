@@ -15,7 +15,7 @@ public class GridVisitor {
     int endPoint =
         grid.getConverter().convert(new Position(grid.getTargetNumber(), grid.getTargetNumber()));
     int size = grid.getSize();
-    OutputCounter outputCounter = new OutputCounter(grid.getConverter());
+    OutputCounter outputCounter = new OutputCounter(grid);
     matrix.findAllPath(startingPoint, endPoint, new boolean[size * size], outputCounter);
     return outputCounter;
   }
