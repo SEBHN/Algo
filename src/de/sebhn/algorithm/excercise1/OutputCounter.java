@@ -25,10 +25,12 @@ public class OutputCounter {
     System.out.println(intPositions.size());
   }
 
-  public void printPaths() {
+  public void printPaths(int targetNumber) {
     String path = intPositions.stream()
         .map(pathElement -> positionToIntConverter.deConvert(pathElement).toString()) //
         .collect(Collectors.joining("->"));
-    System.out.println("Paths: " + path);
+    String endPath = targetNumber + "," + targetNumber;
+    path = path.replace(endPath + "->", endPath + "\n");
+    System.out.println("Paths: \n" + path);
   }
 }
