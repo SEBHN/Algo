@@ -20,7 +20,7 @@ public class OutputCounter {
   public OutputCounter(Grid grid) {
     this.grid = grid;
     this.positionToIntConverter = grid.getConverter();
-    pathPrintingMakesSense = grid.getSize() < 50;
+    pathPrintingMakesSense = grid.getSize() <= 10;
     intPositions = new ArrayList<>();
     size = new BigInteger("0");
   }
