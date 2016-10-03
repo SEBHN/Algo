@@ -1,13 +1,10 @@
-package de.sebhn.algorithm.excercise1;
+package de.sebhn.algorithm.excercise1.helper;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 import java.util.stream.Collectors;
-
-import de.sebhn.algorithm.excercise1.helper.Grid;
-import de.sebhn.algorithm.excercise1.helper.PositionToIntConverter;
 
 public class OutputCounter {
 

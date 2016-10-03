@@ -1,7 +1,5 @@
 package de.sebhn.algorithm.excercise1.helper;
 
-import de.sebhn.algorithm.excercise1.OutputCounter;
-
 public class StarterHelper {
 
   public static void main(String[] args) {

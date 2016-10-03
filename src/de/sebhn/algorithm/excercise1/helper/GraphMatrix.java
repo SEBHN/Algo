@@ -2,8 +2,6 @@ package de.sebhn.algorithm.excercise1.helper;
 
 import java.util.Stack;
 
-import de.sebhn.algorithm.excercise1.OutputCounter;
-
 public class GraphMatrix {
 
   private final int[][] graph;
