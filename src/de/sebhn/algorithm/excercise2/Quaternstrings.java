@@ -1,5 +1,6 @@
 package de.sebhn.algorithm.excercise2;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,17 +12,17 @@ public class Quaternstrings {
 
   public static void calculate(int n) {
     int radix = 4;
-    String zeroFormat = "%0" + n + "d";
 
     List<String> possibleNumbers = new ArrayList<>();
-
-    double maxNumber = Math.pow(4, n);
+    BigInteger maxNumber = new BigInteger("4").pow(n);
     System.out.println("maxnbr " + maxNumber);
 
-    for (int i = 0; i < maxNumber; i++) {
-      String numberAsRadix4 = Integer.toString(i, radix);
-      String numberWithZeroPrefix = String.format(zeroFormat, Integer.parseInt(numberAsRadix4));
-      possibleNumbers.add(numberWithZeroPrefix);
+    for (BigInteger i = BigInteger.ZERO; i.compareTo(maxNumber) < 0; i = i.add(BigInteger.ONE)) {
+      String numberAsRadix4 = i.toString(radix);
+      while (numberAsRadix4.length() < n) {
+        numberAsRadix4 = "0" + numberAsRadix4;
+      }
+      possibleNumbers.add(numberAsRadix4);
     }
 
     for (String number : possibleNumbers) {
