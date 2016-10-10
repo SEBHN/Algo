@@ -8,21 +8,22 @@ public class ScanLineMultiplicationMinimum {
 
 
   public static void main(String[] args) {
-    double bisMin = Double.MAX_VALUE;
-    double[] array = somePositiveArray();
-    double scanMin = getSmallestNumber(array);
-    for (int i = 1; i < array.length; i++) {
-      double myDouble = array[i];
+    double scanMin = 1;
+    double bisMin = 1;
+    double[] someRandomArray = someRandomArray();
+    for (int i = 0; i < someRandomArray.length; i++) {
+      double myDouble = someRandomArray[i];
+      System.out.println("calc" + scanMin + "*" + myDouble);
       scanMin *= myDouble;
-      if (scanMin > 1 && i > 1) {
-        if (!hasNegativeNumberInRemainingArray(array, i)) {
+      if (scanMin > 1) {
+        if (!hasNegativeNumberInRemainingArray(someRandomArray, i)) {
           scanMin /= myDouble;
         }
       }
       System.out.println("bisMin" + bisMin + " scanMin:" + scanMin);
       bisMin = min(scanMin, bisMin);
     }
-    System.out.println("Array: " + Arrays.toString(array));
+    System.out.println("Array: " + Arrays.toString(someRandomArray));
   }
 
   private static boolean hasNegativeNumberInRemainingArray(double[] arrayToCheck,
@@ -34,19 +35,6 @@ public class ScanLineMultiplicationMinimum {
       }
     }
     return false;
-  }
-
-  private static double getSmallestNumber(double[] array) {
-    Double smallest = null;
-    for (int i = 0; i < array.length; i++) {
-      double value = array[i];
-      if (smallest == null) {
-        smallest = Double.valueOf(value);
-      } else if (smallest.doubleValue() > value) {
-        smallest = Double.valueOf(value);
-      }
-    }
-    return smallest.doubleValue();
   }
 
   public static double[] someRandomArray() {
@@ -65,7 +53,7 @@ public class ScanLineMultiplicationMinimum {
   }
 
   public static double[] someNegativeArray() {
-    double[] randomArray = new double[11];
+    double[] randomArray = new double[10];
     randomArray[0] = -1;
     randomArray[1] = -2;
     randomArray[2] = -3;
@@ -76,23 +64,6 @@ public class ScanLineMultiplicationMinimum {
     randomArray[7] = -8;
     randomArray[8] = -9;
     randomArray[9] = -10;
-    randomArray[10] = -11;
-    return randomArray;
-  }
-
-  public static double[] somePositiveArray() {
-    double[] randomArray = new double[11];
-    randomArray[0] = 10000;
-    randomArray[1] = 2;
-    randomArray[2] = 3;
-    randomArray[3] = 4;
-    randomArray[4] = 5;
-    randomArray[5] = 6;
-    randomArray[6] = 7;
-    randomArray[7] = 8;
-    randomArray[8] = 9;
-    randomArray[9] = 10;
-    randomArray[10] = 11;
     return randomArray;
   }
 }
