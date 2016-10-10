@@ -3,7 +3,7 @@ package de.sebhn.algorithm.excercise2;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NumberPrinter {
+public class Quaternstrings {
 
   public static void main(String[] args) {
     int n = 3;
