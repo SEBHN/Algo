@@ -6,7 +6,10 @@ import java.util.List;
 public class Quaternstrings {
 
   public static void main(String[] args) {
-    int n = 3;
+    Quaternstrings.calculate(3);
+  }
+
+  public static void calculate(int n) {
     int radix = 4;
     String zeroFormat = "%0" + n + "d";
 
