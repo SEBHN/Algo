@@ -16,6 +16,7 @@ public class Quaternstrings {
     List<String> possibleNumbers = new ArrayList<>();
 
     double maxNumber = Math.pow(4, n);
+    System.out.println("maxnbr " + maxNumber);
 
     for (int i = 0; i < maxNumber; i++) {
       String numberAsRadix4 = Integer.toString(i, radix);
@@ -26,5 +27,6 @@ public class Quaternstrings {
     for (String number : possibleNumbers) {
       System.out.println(number);
     }
+    System.out.println("Amount of possibleNumbers " + possibleNumbers.size());
   }
 }
