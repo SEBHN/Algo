@@ -1,6 +1,10 @@
 package de.sebhn.algorithm.excercise2;
 
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Ignore;
 import org.junit.Test;
+
 
 public class QuaternstringsTest {
 
@@ -26,8 +30,16 @@ public class QuaternstringsTest {
    * @throws Exception
    */
   @Test
+  @Ignore
   public void testN1000() throws Exception {
     Quaternstrings.calculate(1000);
+  }
+
+  @Test
+  public void testCharArray() throws Exception {
+    String anumber = "001";
+    char[] charArray = anumber.toCharArray();
+    assertEquals(3, charArray.length);
   }
 
 }

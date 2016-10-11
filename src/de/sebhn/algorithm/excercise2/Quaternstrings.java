@@ -5,7 +5,7 @@ import java.math.BigInteger;
 public class Quaternstrings {
 
   public static void main(String[] args) {
-    Quaternstrings.calculate(1000);
+    Quaternstrings.calculate(3);
   }
 
   public static void calculate(int n) {
@@ -54,13 +54,6 @@ public class Quaternstrings {
   }
 
   private static boolean hasNextIndex(char[] numbers, int nextIndex) {
-    try {
-      @SuppressWarnings("unused")
-      char nextChar = numbers[nextIndex];
-      return true;
-    } catch (ArrayIndexOutOfBoundsException aio) {
-      // ignore
-      return false;
-    }
+    return nextIndex < numbers.length;
   }
 }
