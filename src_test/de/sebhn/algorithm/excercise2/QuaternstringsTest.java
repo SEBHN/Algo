@@ -24,6 +24,36 @@ public class QuaternstringsTest {
     Quaternstrings.calculate(4);
   }
 
+  @Test
+  public void testN5() throws Exception {
+    Quaternstrings.calculate(5);
+  }
+
+  @Test
+  public void testN6() throws Exception {
+    Quaternstrings.calculate(6);
+  }
+
+  @Test
+  public void testN7() throws Exception {
+    Quaternstrings.calculate(7);
+  }
+
+  @Test
+  public void testN8() throws Exception {
+    Quaternstrings.calculate(8);
+  }
+
+  @Test
+  public void testN9() throws Exception {
+    Quaternstrings.calculate(9);
+  }
+
+  @Test
+  public void testN10() throws Exception {
+    Quaternstrings.calculate(10);
+  }
+
   /**
    * Holy grail of algo
    * 
