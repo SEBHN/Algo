@@ -1,40 +1,37 @@
 package de.sebhn.algorithm.excercise2;
 
-import static java.lang.Math.min;
-
 import java.util.Arrays;
 
 public class MinProduct {
 
 
-  public static void main(String[] args) {
-    double scanMin = 1;
-    double bisMin = 1;
+  public static void main(String[] args) throws Exception {
     double[] someRandomArray = someRandomArray();
-    for (int i = 0; i < someRandomArray.length; i++) {
-      double myDouble = someRandomArray[i];
-      System.out.println("calc" + scanMin + "*" + myDouble);
-      scanMin *= myDouble;
-      if (scanMin > 1) {
-        if (!hasNegativeNumberInRemainingArray(someRandomArray, i)) {
-          scanMin /= myDouble;
-        }
-      }
-      System.out.println("bisMin" + bisMin + " scanMin:" + scanMin);
-      bisMin = min(scanMin, bisMin);
-    }
     System.out.println("Array: " + Arrays.toString(someRandomArray));
-  }
-
-  private static boolean hasNegativeNumberInRemainingArray(double[] arrayToCheck,
-      int currentPosition) {
-    for (int j = currentPosition; j < arrayToCheck.length; j++) {
-      double aPossibleNegative = arrayToCheck[currentPosition];
-      if (aPossibleNegative < 0) {
-        return true;
-      }
+    if (someRandomArray.length == 0) {
+      throw new Exception("Please fill array");
     }
-    return false;
+    double firstEntry = someRandomArray[0];
+    double current_min_prod = firstEntry;
+    double current_max_prod = firstEntry;
+    double previous_min_prod = firstEntry;
+    double previous_max_prod = firstEntry;
+    double result = firstEntry;
+    for (int i = 1; i < someRandomArray.length; i++) {
+      double myDouble = someRandomArray[i];
+      // System.out.println("calc min " + previous_min_prod + "*" + myDouble);
+      // System.out.println("calc max " + previous_max_prod + "*" + myDouble);
+      double temporaryMax = previous_max_prod * myDouble;
+      double temporaryMin = previous_min_prod * myDouble;
+      current_max_prod = Math.max(Math.max(temporaryMax, temporaryMin), myDouble);
+      current_min_prod = Math.min(Math.min(temporaryMax, temporaryMin), myDouble);
+
+      result = Math.min(Math.min(result, current_min_prod), myDouble);
+      previous_max_prod = current_max_prod;
+      previous_min_prod = current_min_prod;
+      // System.out.println(result);
+    }
+    System.out.println("result: " + result);
   }
 
   public static double[] someRandomArray() {
