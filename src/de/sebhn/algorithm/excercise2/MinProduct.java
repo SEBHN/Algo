@@ -4,7 +4,7 @@ import static java.lang.Math.min;
 
 import java.util.Arrays;
 
-public class ScanLineMultiplicationMinimum {
+public class MinProduct {
 
 
   public static void main(String[] args) {
