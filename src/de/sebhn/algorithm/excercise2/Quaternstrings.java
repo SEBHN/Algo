@@ -16,7 +16,6 @@ public class Quaternstrings {
 
     for (BigInteger i = BigInteger.ZERO; i.compareTo(maxNumber) < 0; i = i.add(BigInteger.ONE)) {
       String numberAsRadix4 = i.toString(radix);
-      numberAsRadix4 = addLeadingZeros(n, numberAsRadix4);
 
       if (canBePrinted(numberAsRadix4)) {
         counter = counter.add(BigInteger.ONE);
@@ -40,17 +39,11 @@ public class Quaternstrings {
         int nextCharAsNumber = nextChar;
         if (nextCharAsNumber == currentCharAsNumber + 1) {
           print = false;
+          break;
         }
       }
     }
     return print;
-  }
-
-  private static String addLeadingZeros(int length, String numberAsRadix4) {
-    while (numberAsRadix4.length() < length) {
-      numberAsRadix4 = "0" + numberAsRadix4;
-    }
-    return numberAsRadix4;
   }
 
   private static boolean hasNextIndex(char[] numbers, int nextIndex) {
