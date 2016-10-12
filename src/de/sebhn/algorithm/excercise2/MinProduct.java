@@ -6,7 +6,7 @@ public class MinProduct {
 
 
   public static void main(String[] args) throws Exception {
-    double[] someRandomArray = someRandomArray();
+    double[] someRandomArray = someOtherRandomArray();
     System.out.println("Array: " + Arrays.toString(someRandomArray));
     if (someRandomArray.length == 0) {
       throw new Exception("Please fill array");
@@ -26,7 +26,11 @@ public class MinProduct {
       current_max_prod = Math.max(Math.max(temporaryMax, temporaryMin), myDouble);
       current_min_prod = Math.min(Math.min(temporaryMax, temporaryMin), myDouble);
 
-      result = Math.min(Math.min(result, current_min_prod), myDouble);
+      if (current_min_prod > 1) {
+        current_min_prod = 1;
+      }
+
+      result = Math.min(result, current_min_prod);
       previous_max_prod = current_max_prod;
       previous_min_prod = current_min_prod;
       // System.out.println(result);
@@ -63,4 +67,35 @@ public class MinProduct {
     randomArray[9] = -10;
     return randomArray;
   }
+
+  public static double[] somePositiveArray() {
+    double[] randomArray = new double[10];
+    randomArray[0] = 2;
+    randomArray[1] = 3;
+    randomArray[2] = 4;
+    randomArray[3] = 5;
+    randomArray[4] = 6;
+    randomArray[5] = 7;
+    randomArray[6] = 8;
+    randomArray[7] = 9;
+    randomArray[8] = 10;
+    randomArray[9] = 11;
+    return randomArray;
+  }
+
+  public static double[] someOtherRandomArray() {
+    double[] randomArray = new double[10];
+    randomArray[0] = -3;
+    randomArray[1] = 3;
+    randomArray[2] = 3;
+    randomArray[3] = 3;
+    randomArray[4] = 3;
+    randomArray[5] = 3;
+    randomArray[6] = 3;
+    randomArray[7] = 3;
+    randomArray[8] = 3;
+    randomArray[9] = -4;
+    return randomArray;
+  }
+
 }
