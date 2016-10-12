@@ -8,6 +8,10 @@ import org.junit.Test;
 
 public class QuaternstringsTest {
 
+  @Test
+  public void testN1() throws Exception {
+    Quaternstrings.calculate(1);
+  }
 
   @Test
   public void testN2() throws Exception {
