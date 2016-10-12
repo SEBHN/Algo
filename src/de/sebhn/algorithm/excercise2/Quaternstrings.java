@@ -1,6 +1,7 @@
 package de.sebhn.algorithm.excercise2;
 
 import java.math.BigInteger;
+import java.util.Scanner;
 
 public class Quaternstrings {
 
@@ -17,7 +18,12 @@ public class Quaternstrings {
   }
 
   public static void main(String[] args) throws Exception {
-    Quaternstrings.calculate(2);
+    System.out.println("Bitte geben sie eine Zahl ein: ");
+    int n;
+    try (Scanner s = new Scanner(System.in)) {
+      n = Integer.parseInt(s.next());
+    }
+    Quaternstrings.calculate(n);
   }
 
   public static BigInteger calculate(int n) {
