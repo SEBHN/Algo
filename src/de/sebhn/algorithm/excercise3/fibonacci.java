@@ -1,4 +1,4 @@
-package de.sebhn.algorithm.excercise3_3;
+package de.sebhn.algorithm.excercise3;
 
 import java.math.BigInteger;
 import java.util.HashMap;
