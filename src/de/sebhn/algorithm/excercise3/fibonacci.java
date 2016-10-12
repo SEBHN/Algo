@@ -12,7 +12,13 @@ public class fibonacci {
   public static void main(String[] args) {
     for (int i = 0; i < 37; i++) {
       int g = F(i).intValue(); // g lesen
-      w = new BigInteger[g + 1][n]; // w dimensionieren
+      int gPlusOne = g + 1;
+      w = new BigInteger[gPlusOne][n]; // w dimensionieren
+      for (int j = 0; j < gPlusOne; j++) {
+        for (int l = 0; l < n; l++) {
+          w[j][l] = BigInteger.ZERO;
+        }
+      }
       System.out.println(
           "Den Betrag " + g + " kann man auf " + w(g, n - 1) + " verschiedene Arten wecheln.");
     }
