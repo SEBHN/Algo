@@ -10,7 +10,7 @@ public class fibonacci {
   static BigInteger w[][]; // Tabelle
 
   public static void main(String[] args) {
-    for (int i = 0; i < 37; i++) {
+    for (int i = 0; i < 41; i++) {
       int g = F(i).intValue(); // g lesen
       int gPlusOne = g + 1;
       w = new BigInteger[gPlusOne][n]; // w dimensionieren
