@@ -1,6 +1,8 @@
 package de.sebhn.algorithm.excercise2;
 
 import java.util.Arrays;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class MinProduct {
 
@@ -17,6 +19,7 @@ public class MinProduct {
     double previous_min_prod = firstEntry;
     double previous_max_prod = firstEntry;
     double result = firstEntry;
+    int indexFrom = 0;
     for (int i = 1; i < someRandomArray.length; i++) {
       double myDouble = someRandomArray[i];
       // System.out.println("calc min " + previous_min_prod + "*" + myDouble);
@@ -25,9 +28,16 @@ public class MinProduct {
       double temporaryMin = previous_min_prod * myDouble;
       current_max_prod = Math.max(Math.max(temporaryMax, temporaryMin), myDouble);
       current_min_prod = Math.min(Math.min(temporaryMax, temporaryMin), myDouble);
+      System.out.println("new min " + current_min_prod + " new max " + current_max_prod);
 
+      // wenn current max < temporarMax, currentMax index = tempIndex
+
+      // momentane max < momentan min = vorzeichenwechsel //wechsel von min/max
       if (current_min_prod > 1) {
         current_min_prod = 1;
+        indexFrom = i;
+        System.out.println("reseted");
+        // neue teilfolge
       }
 
       result = Math.min(result, current_min_prod);
@@ -35,7 +45,11 @@ public class MinProduct {
       previous_min_prod = current_min_prod;
       // System.out.println(result);
     }
-    System.out.println("result: " + result);
+
+    String factors = IntStream.range(indexFrom, someRandomArray.length) // start from indexFrom
+        .mapToObj(i -> String.valueOf(Double.valueOf(someRandomArray[i]))) // assign value to String
+        .collect(Collectors.joining("*", " calculated from ", ""));
+    System.out.println("result: " + result + factors);
   }
 
   public static double[] someRandomArray() {
