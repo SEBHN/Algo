@@ -3,6 +3,12 @@ package de.sebhn.algorithm.excercise2;
 import java.math.BigInteger;
 import java.util.Scanner;
 
+/**
+ * Find all numbers for a specific pattern <br>
+ * Disallowed numbers are: i,i+1
+ * 
+ * @author Phi Long Tran <191624> & Manuel Wessner <191711>
+ */
 public class Quaternstrings {
 
   private int n;
@@ -30,18 +36,23 @@ public class Quaternstrings {
     return new Quaternstrings(n).calculate();
   }
 
+  /**
+   * Calculates all possible combinations
+   * 
+   * @return calculated number of combinations
+   */
   private BigInteger calculate() {
     for (int i = 1; i < n; i++) {
       addInPlace();
     }
-    BigInteger amountOfPaths = getAmountOfPaths();
-    System.out.println("Amount of paths: " + amountOfPaths);
-    return amountOfPaths;
+    BigInteger combinations = getAmountOfPossibleCombinations();
+    System.out.println("Amount of possible combinations: " + combinations);
+    return combinations;
   }
 
-  private BigInteger getAmountOfPaths() {
-    BigInteger amountOfPaths = a0.add(a1).add(a2).add(a3);
-    return amountOfPaths;
+  private BigInteger getAmountOfPossibleCombinations() {
+    BigInteger possibleCombinations = a0.add(a1).add(a2).add(a3);
+    return possibleCombinations;
   }
 
   private void addInPlace() {
