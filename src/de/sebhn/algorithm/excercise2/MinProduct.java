@@ -4,6 +4,11 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+/**
+ * Calculates from any double array the smallest product
+ * 
+ * @author Phi Long Tran <191624> & Manuel Wessner <191711>
+ */
 public class MinProduct {
 
   private static int indexStart = 0;
@@ -23,6 +28,12 @@ public class MinProduct {
     calculateMinProduct(someRandomArray);
   }
 
+  /**
+   * Calculates from any double array the smallest product
+   * 
+   * @param someRandomArray
+   * @return smallest product
+   */
   public static double calculateMinProduct(double[] someRandomArray) throws Exception {
     System.out.println("Array: " + Arrays.toString(someRandomArray));
     if (someRandomArray.length == 0) {
@@ -45,7 +56,6 @@ public class MinProduct {
       // System.out.println("new min " + current_min_prod + " new max " + current_max_prod);
 
 
-      // momentane max < momentan min = vorzeichenwechsel //wechsel von min/max
       if (current_min_prod > 1) {
         current_min_prod = 1;
         indexEnd = i - 1;
@@ -69,6 +79,11 @@ public class MinProduct {
     return result;
   }
 
+  /**
+   * Goes the arrays back from a given index to find the startIndex by comparing the result
+   * 
+   * @throws Exception
+   */
   private static int determineIndexStart(double[] someRandomArray, int indexEnd, double result)
       throws Exception {
     double newResult = 1;
