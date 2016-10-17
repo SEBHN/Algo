@@ -6,6 +6,11 @@ import java.util.stream.IntStream;
 
 public class MinProduct {
 
+  private static int indexStart = 0;
+  private static int indexEnd = 0;
+  private static int indexStartScan = 0;
+  private static int indexEndScan = 0;
+
 
   public static void main(String[] args) throws Exception {
     double[] someRandomArray = someOtherRandomArray();
@@ -22,6 +27,7 @@ public class MinProduct {
     int indexFrom = 0;
     for (int i = 1; i < someRandomArray.length; i++) {
       double myDouble = someRandomArray[i];
+      indexEndScan = i;
       // System.out.println("calc min " + previous_min_prod + "*" + myDouble);
       // System.out.println("calc max " + previous_max_prod + "*" + myDouble);
       double temporaryMax = previous_max_prod * myDouble;
@@ -36,14 +42,21 @@ public class MinProduct {
       if (current_min_prod > 1) {
         current_min_prod = 1;
         indexFrom = i;
+        indexStartScan = i;
+        indexEnd = i - 1;
         System.out.println("reseted");
         // neue teilfolge
       }
 
       result = Math.min(result, current_min_prod);
+      if (current_min_prod <= result) {
+        indexStart = indexStartScan;
+        indexEnd = indexEndScan;
+      }
       previous_max_prod = current_max_prod;
       previous_min_prod = current_min_prod;
       // System.out.println(result);
+      System.out.println("Index ist: " + indexStart + " " + indexEnd);
     }
 
     String factors = IntStream.range(indexFrom, someRandomArray.length) // start from indexFrom
@@ -84,7 +97,7 @@ public class MinProduct {
 
   public static double[] somePositiveArray() {
     double[] randomArray = new double[10];
-    randomArray[0] = 2;
+    randomArray[0] = 0.2;
     randomArray[1] = 3;
     randomArray[2] = 4;
     randomArray[3] = 5;
@@ -99,16 +112,16 @@ public class MinProduct {
 
   public static double[] someOtherRandomArray() {
     double[] randomArray = new double[10];
-    randomArray[0] = -3;
-    randomArray[1] = 3;
-    randomArray[2] = 3;
+    randomArray[0] = -2;
+    randomArray[1] = -3000000;
+    randomArray[2] = -300;
     randomArray[3] = 3;
     randomArray[4] = 3;
-    randomArray[5] = 3;
+    randomArray[5] = -30000;
     randomArray[6] = 3;
     randomArray[7] = 3;
     randomArray[8] = 3;
-    randomArray[9] = -4;
+    randomArray[9] = 100;
     return randomArray;
   }
 
