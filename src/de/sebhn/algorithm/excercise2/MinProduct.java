@@ -11,7 +11,19 @@ public class MinProduct {
 
 
   public static void main(String[] args) throws Exception {
-    double[] someRandomArray = someOtherRandomArray();
+    double[] someRandomArray;
+    if (args.length == 0) {
+      someRandomArray = someOtherRandomArray();
+    } else {
+      someRandomArray = new double[args.length];
+      for (int i = 0; i < args.length; i++) {
+        someRandomArray[i] = Double.valueOf(args[i]);
+      }
+    }
+    calculateMinProduct(someRandomArray);
+  }
+
+  public static void calculateMinProduct(double[] someRandomArray) throws Exception {
     System.out.println("Array: " + Arrays.toString(someRandomArray));
     if (someRandomArray.length == 0) {
       throw new Exception("Please fill array");
