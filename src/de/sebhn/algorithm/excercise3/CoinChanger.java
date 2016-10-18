@@ -1,6 +1,12 @@
 package de.sebhn.algorithm.excercise3;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.math.BigInteger;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 
 public class CoinChanger {
@@ -42,25 +48,56 @@ public class CoinChanger {
     int arr[] = {1, 3, 7, 31, 47};
 
 
+    BigInteger[] results = readIfPossible();
 
-    for (int i = 33; i <= 36; i++) {
+    for (int i = 37; i <= 40; i++) {
       int fibonacciNumber = Fibonacci.of(i);
       System.out.println("cycle: " + i + " number: " + fibonacciNumber + " are following possible "
-          + maxCoins(fibonacciNumber, arr));
+          + maxCoinsTest(fibonacciNumber, arr, results));
     }
-    // try {
-    // ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("test.ser"));
-    // os.writeObject(table);
-    // } catch (IOException e) {
-    // // TODO Auto-generated catch block
-    // e.printStackTrace();
-    // }
+    writeObject(results);
+  }
+
+  private static void writeObject(BigInteger[] results) {
+    Path file = Paths.get("test.ser");
+    try (ObjectOutputStream os = new ObjectOutputStream(Files.newOutputStream(file));) {
+      os.writeObject(results);
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+  }
+
+  private static BigInteger[] readIfPossible() {
+    Path file = Paths.get("test.ser");
+    if (Files.exists(file)) {
+      try (ObjectInputStream ois = new ObjectInputStream(Files.newInputStream(file))) {
+        BigInteger[] readObject = (BigInteger[]) ois.readObject();
+        return readObject;
+      } catch (IOException | ClassNotFoundException e) {
+        e.printStackTrace();
+      }
+    }
+    BigInteger[] results = new BigInteger[102334155 + 1];
+    Arrays.fill(results, BigInteger.ZERO);
+    results[0] = BigInteger.ONE;
+    return results;
   }
 
   private static BigInteger maxCoins(int n, int[] coins) {
     BigInteger[] results = new BigInteger[n + 1];
     Arrays.fill(results, BigInteger.ZERO);
     results[0] = BigInteger.ONE;
+    for (int i = 0; i < coins.length; i++) {
+      for (int j = coins[i]; j <= n; j++) {
+        results[j] = results[j].add(results[j - coins[i]]);
+      }
+    }
+
+    return results[n];
+  }
+
+  private static BigInteger maxCoinsTest(int n, int[] coins, BigInteger[] results) {
     for (int i = 0; i < coins.length; i++) {
       for (int j = coins[i]; j <= n; j++) {
         results[j] = results[j].add(results[j - coins[i]]);
