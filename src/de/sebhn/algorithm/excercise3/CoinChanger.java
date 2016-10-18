@@ -6,7 +6,7 @@ import java.util.Arrays;
 public class CoinChanger {
 
 
-  static BigInteger countWays(int S[], int m, int n) {
+  static BigInteger countWays(int S[], int n) {
     // Time complexity of this function: O(mn)
     // Space Complexity of this function: O(n)
 
@@ -24,6 +24,7 @@ public class CoinChanger {
     // Pick all coins one by one and update the table[]
     // values after the index greater than or equal to
     // the value of the picked coin
+    int m = S.length;
     for (int i = 0; i < m; i++) {
       for (int j = S[i]; j <= n; j++) {
         BigInteger otherValue = table[j - S[i]];
@@ -39,14 +40,13 @@ public class CoinChanger {
   // Driver Function to test above function
   public static void main(String args[]) {
     int arr[] = {1, 3, 7, 31, 47};
-    int m = arr.length;
 
 
 
     for (int i = 33; i <= 36; i++) {
       int fibonacciNumber = Fibonacci.of(i);
       System.out.println("cycle: " + i + " number: " + fibonacciNumber + " are following possible "
-          + countWays(arr, m - 1, fibonacciNumber));
+          + maxCoins(fibonacciNumber, arr));
     }
     // try {
     // ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("test.ser"));
@@ -55,5 +55,18 @@ public class CoinChanger {
     // // TODO Auto-generated catch block
     // e.printStackTrace();
     // }
+  }
+
+  private static BigInteger maxCoins(int n, int[] coins) {
+    BigInteger[] results = new BigInteger[n + 1];
+    Arrays.fill(results, BigInteger.ZERO);
+    results[0] = BigInteger.ONE;
+    for (int i = 0; i < coins.length; i++) {
+      for (int j = coins[i]; j <= n; j++) {
+        results[j] = results[j].add(results[j - coins[i]]);
+      }
+    }
+
+    return results[n];
   }
 }
