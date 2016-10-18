@@ -3,7 +3,7 @@ package de.sebhn.algorithm.excercise3;
 import java.math.BigInteger;
 import java.util.HashMap;
 
-public class fibonacci {
+public class Fibonacci {
   static int betrag[] = {1, 3, 7, 31, 47};
   static int n = betrag.length; // Anzahl Muenzen
 
@@ -44,5 +44,15 @@ public class fibonacci {
         : i == 0 ? (g % betrag[0] == 0 ? BigInteger.ONE : BigInteger.ZERO)
             : !w[g][i].equals(BigInteger.ZERO) ? w[g][i]
                 : (w[g][i] = w(g, i - 1).add(w(g - betrag[i], i)));
+  }
+
+  public static int of(int n) {
+    if (n == 0) {
+      return 0;
+    } else if (n == 1) {
+      return 1;
+    } else {
+      return of(n - 1) + of(n - 2);
+    }
   }
 }
