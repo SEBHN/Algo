@@ -42,7 +42,7 @@ public class fibonacci {
   static BigInteger w(int g, int i) { // Methode
     return g < 0 ? BigInteger.ZERO
         : i == 0 ? (g % betrag[0] == 0 ? BigInteger.ONE : BigInteger.ZERO)
-            : !w[g][i].toString().equals("0") ? w[g][i]
+            : !w[g][i].equals(BigInteger.ZERO) ? w[g][i]
                 : (w[g][i] = w(g, i - 1).add(w(g - betrag[i], i)));
   }
 }
