@@ -1,6 +1,6 @@
 package de.sebhn.algorithm.excercise3;
 
-public class polynom {
+public class Polynom {
 
   public static void main(String[] args) {
     // TODO Auto-generated method stub
