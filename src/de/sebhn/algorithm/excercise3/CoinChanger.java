@@ -4,8 +4,7 @@ import java.math.BigInteger;
 import java.util.Arrays;
 
 /**
- * Solves the <a href="https://en.wikipedia.org/wiki/Change-making_problem">change making
- * problem</a> in the best possible way
+ * Solves the change making problem in the best possible way
  *
  */
 public class CoinChanger {
