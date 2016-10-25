@@ -88,13 +88,14 @@ public class MinProduct {
       throws Exception {
     double newResult = 1;
     for (int i = indexEnd; i >= 0; i--) {
-      newResult *= someRandomArray[i];
-      if (newResult == result) {
+      double entry = someRandomArray[i];
+      newResult *= entry;
+      if (newResult == result || entry == result) {
         return i;
       }
     }
+    System.err.println("Shouldnt come here");
     return 0;
-    // throw new Exception("Shouldnt come here");
   }
 
   public static double[] someRandomArray() {
