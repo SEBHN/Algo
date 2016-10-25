@@ -93,21 +93,22 @@ public class MinProduct {
         return i;
       }
     }
-    throw new Exception("Shouldnt come here");
+    return 0;
+    // throw new Exception("Shouldnt come here");
   }
 
   public static double[] someRandomArray() {
     double[] randomArray = new double[10];
     randomArray[0] = 1;
-    randomArray[1] = -13;
+    randomArray[1] = 13;
     randomArray[2] = 4.5;
     randomArray[3] = 7;
     randomArray[4] = 98;
-    randomArray[5] = -33.5;
+    randomArray[5] = 33.5;
     randomArray[6] = 3;
     randomArray[7] = 64;
     randomArray[8] = 8;
-    randomArray[9] = -2;
+    randomArray[9] = 2;
     return randomArray;
   }
 }
