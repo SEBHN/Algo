@@ -23,7 +23,6 @@ public class Turns {
   public ArrayList<int[]> listOfRoutes = new ArrayList<int[]>();
   public int[] route;
   public static int distance = -1;
-  public int[] a;
 
   public static void main(String[] args) {
 
@@ -54,7 +53,6 @@ public class Turns {
   public Turns() {
     visitedCity = new boolean[amountOfCities];
     route = new int[amountOfCities];
-    a = new int[amountOfCities];
     for (int i = 0; i < amountOfCities; i++) {
       visitedCity[i] = false;
       route[i] = 0;
@@ -74,7 +72,6 @@ public class Turns {
     route[travelNumber - 1] = cityNumber;
     if (travelNumber == amountOfCities && Math.abs(cityNumber) >= distance) {
       listOfRoutes.add(route.clone());
-      a[route[1]]++;
       return;
     }
     visitedCity[cityNumber] = true;
