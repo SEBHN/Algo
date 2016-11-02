@@ -28,7 +28,10 @@ public class Perm extends Thread {
 
   private void perm(int i) { // permutiere ab Index i
     if (i >= max) {
-      put(); // eine Permutation fertig
+      boolean haveAllDifferences8 = hasPermutationDifferenceOf8();
+      if (haveAllDifferences8) {
+        put(); // eine Permutation fertig
+      }
     } else {
       for (int j = i; j <= max; j++) { // jedes nach Vorne
         swap(i, j); // vertauschen
@@ -38,6 +41,30 @@ public class Perm extends Thread {
       System.arraycopy(a, i + 1, a, i, max - i); // shift links
       a[max] = h;
     }
+  }
+
+  private boolean hasPermutationDifferenceOf8() {
+    boolean haveAllDifferences8 = true;
+    int testDifference = 8;
+    for (int j = a.length - 1; j >= 0; j--) {
+      int nextIndex = j - 1;
+      int lastElement = a[a.length - 1];
+      if (lastElement < testDifference) {
+        haveAllDifferences8 = false;
+        break;
+      }
+      if (nextIndex >= 0) {
+        int entry = a[j];
+        int nextEntry = a[nextIndex];
+
+        int difference = Math.abs(entry - nextEntry);
+        if (difference < testDifference) {
+          haveAllDifferences8 = false;
+          break;
+        }
+      }
+    }
+    return haveAllDifferences8;
   }
 
   private void swap(int i, int j) { // tausche a[i] <-> a[j]

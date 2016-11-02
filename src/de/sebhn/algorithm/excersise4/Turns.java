@@ -12,7 +12,7 @@ import java.util.Arrays;
 public class Turns {
 
   public static void main(String[] args) {
-    Perm perm = new Perm(10);
+    Perm perm = new Perm(17);
     int[] next = {};
     boolean hasNext = true;
     while (hasNext) {
