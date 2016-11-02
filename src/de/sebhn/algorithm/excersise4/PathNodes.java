@@ -3,11 +3,15 @@ package de.sebhn.algorithm.excersise4;
 import java.math.BigInteger;
 
 /**
- * Prints all path to a certain n
+ * Calculates the sum of all visited points
+ * 
+ * @author Phi Long Tran <191624>
+ * @author Dimitri Kapcikov <191510>
+ * @author Manuel Wessner <191711>
  */
 public class PathNodes {
 
-  private static int sumOfPaths;
+  private static BigInteger sumOfPaths;
 
   public static void main(String[] args) {
     int n;
@@ -22,40 +26,38 @@ public class PathNodes {
         n = 2;
       }
     }
-
-    sumOfPaths = 0;
+    sumOfPaths = BigInteger.ZERO;
     System.out.println("n=" + n);
     calculatePaths(n, n, 0, "");
     System.out.println("sum: " + sumOfPaths);
   }
 
-  private static BigInteger calculatePaths(int x, int y, int step, String path) {
+  private static void calculatePaths(int x, int y, int step, String path) {
     if (x < 0 || y < 0) {
-      return BigInteger.ZERO;
+      return;
     } else if (x == 0 && y == 0) {
-      sumOfPaths += path.length() + 1;
-      return BigInteger.ONE;
+      long sum = path.length() + 1;
+      sumOfPaths = sumOfPaths.add(BigInteger.valueOf(sum));
+      return;
     }
 
-    BigInteger numberOfPaths = BigInteger.ZERO;
 
     if (y < x) {
-      numberOfPaths = numberOfPaths.add(calculatePaths(x - 1, y, 0, "R" + path)); // right
+      calculatePaths(x - 1, y, 0, "R" + path); // right
     }
     if (y <= x) {
-      numberOfPaths = numberOfPaths.add(calculatePaths(x, y - 1, 0, "U" + path)); // up
+      calculatePaths(x, y - 1, 0, "U" + path); // up
     }
     if (y >= x) {
-      numberOfPaths = numberOfPaths.add(calculatePaths(x - 1, y - 1, 0, "F" + path)); // upRight
+      calculatePaths(x - 1, y - 1, 0, "X" + path); // upRight
     }
     if (y > x + 1 && step != 2) {
-      numberOfPaths = numberOfPaths.add(calculatePaths(x + 1, y - 1, 1, "L" + path)); // upLeft
+      calculatePaths(x + 1, y - 1, 1, "Y" + path); // upLeft
     }
     if (y >= x && step != 1) {
-      numberOfPaths = numberOfPaths.add(calculatePaths(x - 1, y + 1, 2, "D" + path)); // downRight
+      calculatePaths(x - 1, y + 1, 2, "D" + path); // downRight
     }
 
-    return numberOfPaths;
   }
 
 }
