@@ -10,10 +10,22 @@ public class PathNodes {
   private static int sumOfPaths;
 
   public static void main(String[] args) {
-    int n = 1;
+    int n;
+    if (args.length == 0) {
+      System.out.println("No arguments - use default n=2");
+      n = 2;
+    } else {
+      try {
+        n = Integer.parseInt(args[0]);
+      } catch (NumberFormatException nfe) {
+        System.out.println("Argument is not a number, use default n=2. Error-Message: " + nfe);
+        n = 2;
+      }
+    }
+
     sumOfPaths = 0;
-    BigInteger numberOfPaths = calculatePaths(n, n, 0, "");
-    System.out.println(numberOfPaths);
+    System.out.println("n=" + n);
+    calculatePaths(n, n, 0, "");
     System.out.println("sum: " + sumOfPaths);
   }
 
@@ -22,7 +34,6 @@ public class PathNodes {
       return BigInteger.ZERO;
     } else if (x == 0 && y == 0) {
       sumOfPaths += path.length() + 1;
-      System.out.println(" " + path + "."); // print path
       return BigInteger.ONE;
     }
 
