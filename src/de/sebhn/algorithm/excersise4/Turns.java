@@ -22,5 +22,6 @@ public class Turns {
         System.out.println(Arrays.toString(next));
       }
     }
+    System.out.println("end");
   }
 }
