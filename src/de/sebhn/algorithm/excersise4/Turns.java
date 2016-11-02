@@ -1,12 +1,26 @@
 package de.sebhn.algorithm.excersise4;
 
+import java.util.Arrays;
+
 /**
- * Created by philo on 26.10.2016.
+ * Solves a custom traveling sales person problem
+ * 
+ * @author Phi Long Tran <191624>
+ * @author Dimitri Kapcikov <191510>
+ * @author Manuel Wessner <191711>
  */
 public class Turns {
 
-    public static void main(String[] args) {
-
+  public static void main(String[] args) {
+    Perm perm = new Perm(10);
+    int[] next = {};
+    boolean hasNext = true;
+    while (hasNext) {
+      next = perm.getNext();
+      hasNext = next != null;
+      if (hasNext) {
+        System.out.println(Arrays.toString(next));
+      }
     }
-
+  }
 }
