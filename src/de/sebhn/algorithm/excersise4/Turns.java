@@ -19,7 +19,7 @@ public class Turns {
    * letzter ort mind. 8 abstand zu ausgangsort, dann array in arraylist speichern
    */
   public boolean[] visitedCity;
-  public ArrayList<int[]> listOfRoutes = new ArrayList<int[]>();
+  public ArrayList<int[]> routes = new ArrayList<>();
   public int[] route;
   private int amountOfCitiesToVisit;
   private int distance;
@@ -34,10 +34,6 @@ public class Turns {
     visitedCity[0] = true;
   }
 
-  Turns(int amountOfCitiesToVisit) {
-    this(amountOfCitiesToVisit, 8);
-  }
-
   public static void main(String[] args) {
     Turns turns = createTurnsWithuserInput();
     turns.calculateNeighbour(0, 1);
@@ -46,12 +42,12 @@ public class Turns {
   }
 
   private void printAmountOfWays() {
-    System.out.println("There are " + listOfRoutes.size() + " stops");
+    System.out.println("There are " + routes.size() + " stops");
   }
 
   private void printWays() {
     System.out.println("The ways are: ");
-    for (int[] route : listOfRoutes) {
+    for (int[] route : routes) {
       System.out.println(Arrays.toString(route));
     }
   }
@@ -59,35 +55,33 @@ public class Turns {
   private static Turns createTurnsWithuserInput() {
     int amountOfCities = -1;
     int distance = -1;
-    System.out.println("Bitte geben Sie die Anzahl an Orte an, die besucht werden sollen.");
+    System.out.println("How many cities should be visited?");
     try (Scanner sc = new Scanner(System.in)) {
       while (amountOfCities < 0) {
-        try {
-          int i = Integer.parseInt(sc.next());
-          amountOfCities = i;
-        } catch (Exception exception) {
-          System.out.println("Bitte eine natürlich Zahl eingeben.");
-        }
+        amountOfCities = readInputFromuser(sc);
       }
-      System.out.println("Bitte den Abstand angeben, der zwischen den Städteindizes liegen soll.");
+      System.out.println("How far should the cities be apart of each other?");
       while (distance < 0) {
-        try {
-          int i = Integer.parseInt(sc.next());
-          distance = i;
-        } catch (Exception exception) {
-          System.out.println("Bitte eine natürlich Zahl eingeben.");
-        }
+        distance = readInputFromuser(sc);
       }
-
     }
-
     return new Turns(amountOfCities, distance);
+  }
+
+  private static int readInputFromuser(Scanner sc) {
+    int toBeRead = -1;
+    try {
+      toBeRead = Integer.parseInt(sc.next());
+    } catch (NumberFormatException nfe) {
+      System.out.println("Please retry with a valid input. " + nfe);
+    }
+    return toBeRead;
   }
 
   public void calculateNeighbour(int cityNumber, int travelNumber) {
     route[travelNumber - 1] = cityNumber;
     if (travelNumber == amountOfCitiesToVisit && Math.abs(cityNumber) >= distance) {
-      listOfRoutes.add(route.clone());
+      routes.add(route.clone());
       return;
     }
     visitedCity[cityNumber] = true;
