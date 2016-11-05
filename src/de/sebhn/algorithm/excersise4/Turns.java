@@ -13,11 +13,6 @@ import java.util.Scanner;
  */
 public class Turns {
 
-  /**
-   * n einlesen für n<8 abbrechen - nicht möglich n-dim. boolean-array anlegen -> eintragen welche
-   * belegt wurden wenn abstand >= 8 dann neuen ort in int-array an best. stelle hinzufügen wenn
-   * letzter ort mind. 8 abstand zu ausgangsort, dann array in arraylist speichern
-   */
   public boolean[] visitedCity;
   public ArrayList<int[]> routes = new ArrayList<>();
   public int[] route;
