@@ -76,7 +76,7 @@ public class Turns {
     return toBeRead;
   }
 
-  public void calculateNeighbour(int cityNumber, int travelNumber) {
+  private void calculateNeighbour(int cityNumber, int travelNumber) {
     route[travelNumber - 1] = cityNumber;
     if (travelNumber == amountOfCitiesToVisit && cityNumber >= distance) {
       routes.add(route.clone());
