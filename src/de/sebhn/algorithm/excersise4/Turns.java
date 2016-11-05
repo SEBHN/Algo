@@ -35,9 +35,13 @@ public class Turns {
 
   public static void main(String[] args) {
     Turns turns = createTurnsWithuserInput();
-    turns.calculateNeighbour(0, 1);
-    turns.printWays();
-    turns.printAmountOfWays();
+    turns.run();
+  }
+
+  void run() {
+    calculateNeighbour(0, 1);
+    printWays();
+    printAmountOfWays();
   }
 
   private void printAmountOfWays() {
