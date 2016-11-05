@@ -31,7 +31,6 @@ public class Turns {
     this.route = new int[amountOfCitiesToVisit];
     Arrays.fill(visitedCity, false);
     Arrays.fill(route, 0);
-    visitedCity[0] = true;
   }
 
   public static void main(String[] args) {
@@ -46,7 +45,7 @@ public class Turns {
   }
 
   private void printWays() {
-    System.out.println("The ways are: ");
+    System.out.println("The ways/permutations are: ");
     for (int[] route : routes) {
       System.out.println(Arrays.toString(route));
     }
@@ -80,7 +79,7 @@ public class Turns {
 
   public void calculateNeighbour(int cityNumber, int travelNumber) {
     route[travelNumber - 1] = cityNumber;
-    if (travelNumber == amountOfCitiesToVisit && Math.abs(cityNumber) >= distance) {
+    if (travelNumber == amountOfCitiesToVisit && cityNumber >= distance) {
       routes.add(route.clone());
       return;
     }
