@@ -18,64 +18,80 @@ public class Turns {
    * belegt wurden wenn abstand >= 8 dann neuen ort in int-array an best. stelle hinzufügen wenn
    * letzter ort mind. 8 abstand zu ausgangsort, dann array in arraylist speichern
    */
-  public static int amountOfCities = -1;
   public boolean[] visitedCity;
   public ArrayList<int[]> listOfRoutes = new ArrayList<int[]>();
   public int[] route;
-  public static int distance = -1;
+  private int amountOfCitiesToVisit;
+  private int distance;
 
-  public static void main(String[] args) {
-
-    System.out.println("Bitte geben Sie die Anzahl an Orte an, die besucht werden sollen.");
-    Scanner sc = new Scanner(System.in);
-    while (amountOfCities < 0) {
-      try {
-        int i = Integer.parseInt(sc.next());
-        amountOfCities = i;
-      } catch (Exception exception) {
-        System.out.println("Bitte eine natürlich Zahl eingeben.");
-      }
-    }
-    System.out.println("Bitte den Abstand angeben, der zwischen den Städteindizes liegen soll.");
-    while (distance < 0) {
-      try {
-        int i = Integer.parseInt(sc.next());
-        distance = i;
-        sc.close();
-      } catch (Exception exception) {
-        System.out.println("Bitte eine natürlich Zahl eingeben.");
-      }
-    }
-
-    new Turns();
+  Turns(int amountOfCitiesToVisit, int distance) {
+    this.amountOfCitiesToVisit = amountOfCitiesToVisit;
+    this.distance = distance;
+    this.visitedCity = new boolean[amountOfCitiesToVisit];
+    this.route = new int[amountOfCitiesToVisit];
+    Arrays.fill(visitedCity, false);
+    Arrays.fill(route, 0);
+    visitedCity[0] = true;
   }
 
-  public Turns() {
-    visitedCity = new boolean[amountOfCities];
-    route = new int[amountOfCities];
-    for (int i = 0; i < amountOfCities; i++) {
-      visitedCity[i] = false;
-      route[i] = 0;
+  Turns(int amountOfCitiesToVisit) {
+    this(amountOfCitiesToVisit, 8);
+  }
+
+  public static void main(String[] args) {
+    Turns turns = createTurnsWithuserInput();
+    turns.calculateNeighbour(0, 1);
+    turns.printWays();
+    turns.printAmountOfWays();
+  }
+
+  private void printAmountOfWays() {
+    System.out.println("There are " + listOfRoutes.size() + " stops");
+  }
+
+  private void printWays() {
+    System.out.println("The ways are: ");
+    for (int[] route : listOfRoutes) {
+      System.out.println(Arrays.toString(route));
+    }
+  }
+
+  private static Turns createTurnsWithuserInput() {
+    int amountOfCities = -1;
+    int distance = -1;
+    System.out.println("Bitte geben Sie die Anzahl an Orte an, die besucht werden sollen.");
+    try (Scanner sc = new Scanner(System.in)) {
+      while (amountOfCities < 0) {
+        try {
+          int i = Integer.parseInt(sc.next());
+          amountOfCities = i;
+        } catch (Exception exception) {
+          System.out.println("Bitte eine natürlich Zahl eingeben.");
+        }
+      }
+      System.out.println("Bitte den Abstand angeben, der zwischen den Städteindizes liegen soll.");
+      while (distance < 0) {
+        try {
+          int i = Integer.parseInt(sc.next());
+          distance = i;
+        } catch (Exception exception) {
+          System.out.println("Bitte eine natürlich Zahl eingeben.");
+        }
+      }
+
     }
 
-    visitedCity[0] = true;
-    route[0] = 0;
-    calculateNeighbour(0, 1);
-    System.out.println();
-    for (int i = 0; i < listOfRoutes.size(); i++) {
-      System.out.println(Arrays.toString(listOfRoutes.get(i)));
-    }
-    System.out.println("Es gab genau " + listOfRoutes.size() + " Rundreisen.");
+    return new Turns(amountOfCities, distance);
   }
 
   public void calculateNeighbour(int cityNumber, int travelNumber) {
     route[travelNumber - 1] = cityNumber;
-    if (travelNumber == amountOfCities && Math.abs(cityNumber) >= distance) {
+    if (travelNumber == amountOfCitiesToVisit && Math.abs(cityNumber) >= distance) {
       listOfRoutes.add(route.clone());
       return;
     }
     visitedCity[cityNumber] = true;
-    for (int i = 0; i < amountOfCities; i++) {
+    for (int i = 0; i < amountOfCitiesToVisit; i++) {
       if (Math.abs(cityNumber - i) >= distance && !visitedCity[i]) {
         calculateNeighbour(i, travelNumber + 1);
       }
