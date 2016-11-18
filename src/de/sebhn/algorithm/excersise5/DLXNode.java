@@ -10,9 +10,9 @@ class DLXNode { // represents 1 element or header
 
   DLXNode C; // reference to column-header
   DLXNode L, R, U, D; // left, right, up, down references
-  int var;
   int posH;
   int posV;
+  static int indexLength;
 
   DLXNode() {
     C = L = R = U = D = this;
@@ -85,29 +85,28 @@ class DLXNode { // represents 1 element or header
   public static void main(String[] args) {
     cnt = 0; // set counter for solutions to zero
     h = new DLXNode(); // create header
-    h.var = -1;
     h.posH = -1;
     h.posV = -1;
     DLXNode node = h;
     addHeader(15);
+    gotoIndex(4);
 
-    do {
-      node = node.R;
-      System.out.println(node.getVar());
-      cnt++;
-    } while (cnt < 25);
+    /**
+     * do { node = node.R; System.out.println(node.posV + "," + node.posH); cnt++; } while (cnt <
+     * 25);
+     **/
   }
 
   /**
    * create headers
    */
   public static void addHeader(int n) {
+    indexLength = n;
     DLXNode tempNode;
     int x = 0;
     for (int i = 0; i < n; i++) {
       DLXNode node = new DLXNode();
-      node.var = x++; // add index to headers
-      node.posH = -1; // set horizontal position to -1 to signal header
+      node.posH = x++; // set index to header
       node.posV = -1; // set vertical position to -1 to signal header
       if (h.L == h) {
         // connect header to node and node to header
@@ -125,16 +124,28 @@ class DLXNode { // represents 1 element or header
     }
   }
 
-  private static void addNode(int posH, int posV) {
+  private static DLXNode gotoIndex(int posH) {
     DLXNode node = new DLXNode();
+    node = h.R;
+    for (int i = 0; i < posH; i++) {
+      node = node.R;
+    }
+    System.out.println(node.posH);
+    return node;
   }
 
-  /**
-   * delete later
-   * 
-   * @return head index
-   */
-  public int getVar() {
-    return var;
+  private static void addNode(int posH, int posV) {
+    DLXNode node = new DLXNode();
+    DLXNode temp = h.R;
+    node.posH = posH;
+    node.posV = posV;
+    do {
+      if (h.R == h) {
+        System.out.println("horizontal index too high");
+        return;
+      } else {
+        temp = temp.R;
+      }
+    } while (temp.posH == posH);
   }
 }
