@@ -87,14 +87,30 @@ class DLXNode { // represents 1 element or header
     h = new DLXNode(); // create header
     h.posH = -1;
     h.posV = -1;
-    DLXNode node = h;
-    addHeader(15);
-    gotoIndex(4);
 
-    /**
-     * do { node = node.R; System.out.println(node.posV + "," + node.posH); cnt++; } while (cnt <
-     * 25);
-     **/
+    addHeader(15);
+    addNode(4, 6);
+    addNode(5, 7);
+    addNode(4, 1);
+    addNode(4, 3);
+    addNode(4, 2);
+    DLXNode node = gotoIndex(4);
+    node = node.D;
+    System.out.println(node.posV);
+    node = node.D;
+    System.out.println(node.posV);
+    node = node.D;
+    System.out.println(node.posV);
+    node = node.D;
+    System.out.println(node.posV);
+    node = node.D;
+    System.out.println(node.posV);
+    node = node.D;
+    System.out.println(node.posV);
+    node = node.D;
+    System.out.println(node.posV);
+    node = node.D;
+    System.out.println(node.posV);
   }
 
   /**
@@ -130,22 +146,44 @@ class DLXNode { // represents 1 element or header
     for (int i = 0; i < posH; i++) {
       node = node.R;
     }
-    System.out.println(node.posH);
     return node;
   }
 
   private static void addNode(int posH, int posV) {
     DLXNode node = new DLXNode();
-    DLXNode temp = h.R;
+    DLXNode temp = gotoIndex(posH); // goto header index
     node.posH = posH;
     node.posV = posV;
-    do {
-      if (h.R == h) {
-        System.out.println("horizontal index too high");
-        return;
-      } else {
-        temp = temp.R;
+    node.C = temp; // direct link to header
+    if (temp.D == node.C) { // add node if there are no other nodes
+      temp.U = node;
+      temp.D = node;
+      node.U = temp;
+      node.D = temp;
+      return;
+    } else {
+      for (int i = 0; i < 6; i++) {
+        temp = temp.D;
+        if (temp.posV < posV) {
+          temp = temp.D;
+          if (temp == temp.C) { // add node if its the highest index
+            temp = temp.U;
+            temp.D = node;
+            node.U = temp;
+            node.D = node.C;
+            node.C.U = node;
+            return;
+          }
+        }
+        if (temp.posV > posV) {
+          temp = temp.U;
+          node.D = temp.D; // connect node to higher node
+          temp.D.U = node; // connect higher node to node
+          temp.D = node; // connect lower node to node
+          node.U = temp; // connect node to lower node}
+          return;
+        }
       }
-    } while (temp.posH == posH);
+    }
   }
 }
