@@ -55,7 +55,7 @@ public class PentominoZIPDLX {
    * @return boolean
    */
   public static boolean ueberpruefeModulo(int i, int mod) {
-    return i % 5 + mod < 5 ? true : false;
+    return i % 6 + mod < 6 ? true : false;
   }
 
   /**
@@ -69,9 +69,9 @@ public class PentominoZIPDLX {
   public static void kopfteilVerschieben(int[] t, int mod, boolean plus4) {
     boolean moduloErgebnis = true;
 
-    for (int i = 0; i + t[4] <= 5 * n - 1; i++) {
-      DLXNode[] dlxArray =
-          {new DLXNode(), new DLXNode(), new DLXNode(), new DLXNode(), new DLXNode()};
+    for (int i = 0; i + t[5] <= 6 * n - 1; i++) {
+      DLXNode[] dlxArray = {new DLXNode(), new DLXNode(), new DLXNode(), new DLXNode(),
+          new DLXNode(), new DLXNode()};
 
       if (mod >= 1) {
         moduloErgebnis = ueberpruefeModulo(i, mod);
@@ -101,10 +101,10 @@ public class PentominoZIPDLX {
    */
   public static void matrixKonfigurieren() {
     h = new DLXNode();
-    kopfTeil = new DLXNode[5 * n];
+    kopfTeil = new DLXNode[6 * n];
     kopfTeil[0] = new DLXNode();
 
-    for (int i = 1; i < 5 * n; i++) {
+    for (int i = 1; i < 6 * n; i++) {
       kopfTeil[i] = new DLXNode();
       kopfTeil[i].L = kopfTeil[i - 1];
       kopfTeil[i].R = kopfTeil[0];
