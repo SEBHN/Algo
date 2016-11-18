@@ -10,11 +10,13 @@ class DLXNode { // represents 1 element or header
 
   DLXNode C; // reference to column-header
   DLXNode L, R, U, D; // left, right, up, down references
+  int var;
+  int posH;
+  int posV;
 
   DLXNode() {
     C = L = R = U = D = this;
   } // supports circular lists
-
 
 
   /**
@@ -25,7 +27,7 @@ class DLXNode { // represents 1 element or header
    * @param int k: number of level
    *
    */
-  static int cnt = 0;
+  static int cnt;
   static DLXNode h;
 
   public static void search(int k) { // finds & counts solutions
@@ -81,6 +83,58 @@ class DLXNode { // represents 1 element or header
   }
 
   public static void main(String[] args) {
-    h = new DLXNode();
+    cnt = 0; // set counter for solutions to zero
+    h = new DLXNode(); // create header
+    h.var = -1;
+    h.posH = -1;
+    h.posV = -1;
+    DLXNode node = h;
+    addHeader(15);
+
+    do {
+      node = node.R;
+      System.out.println(node.getVar());
+      cnt++;
+    } while (cnt < 25);
+  }
+
+  /**
+   * create headers
+   */
+  public static void addHeader(int n) {
+    DLXNode tempNode;
+    int x = 0;
+    for (int i = 0; i < n; i++) {
+      DLXNode node = new DLXNode();
+      node.var = x++; // add index to headers
+      node.posH = -1; // set horizontal position to -1 to signal header
+      node.posV = -1; // set vertical position to -1 to signal header
+      if (h.L == h) {
+        // connect header to node and node to header
+        h.L = node;
+        h.R = node;
+        node.L = h;
+        node.R = h;
+      } else {
+        tempNode = h.L; // goto last header
+        tempNode.R = node; // connect old last node to new node
+        node.L = tempNode; // connect new node to old last node
+        node.R = h; // connect last new node to header
+        h.L = node; // connect header to last new node
+      }
+    }
+  }
+
+  private static void addNode(int posH, int posV) {
+    DLXNode node = new DLXNode();
+  }
+
+  /**
+   * delete later
+   * 
+   * @return head index
+   */
+  public int getVar() {
+    return var;
   }
 }
