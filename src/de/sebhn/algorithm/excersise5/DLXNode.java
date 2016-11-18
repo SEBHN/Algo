@@ -87,30 +87,6 @@ class DLXNode { // represents 1 element or header
     h = new DLXNode(); // create header
     h.posH = -1;
     h.posV = -1;
-
-    addHeader(15);
-    addNode(4, 6);
-    addNode(5, 7);
-    addNode(4, 1);
-    addNode(4, 3);
-    addNode(4, 2);
-    DLXNode node = gotoIndex(4);
-    node = node.D;
-    System.out.println(node.posV);
-    node = node.D;
-    System.out.println(node.posV);
-    node = node.D;
-    System.out.println(node.posV);
-    node = node.D;
-    System.out.println(node.posV);
-    node = node.D;
-    System.out.println(node.posV);
-    node = node.D;
-    System.out.println(node.posV);
-    node = node.D;
-    System.out.println(node.posV);
-    node = node.D;
-    System.out.println(node.posV);
   }
 
   /**
