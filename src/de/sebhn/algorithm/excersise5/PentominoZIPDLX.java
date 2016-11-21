@@ -117,7 +117,9 @@ public class PentominoZIPDLX {
     kopfTeil[kopfTeil.length - 1].R = h;
 
     // I1-Pentomino
-    kopfteilVerschieben(new int[] {0, 5, 10, 15, 20}, 0, false);
+    // kopfteilVerschieben(new int[] {0, 5, 10, 15, 20}, 0, false);
+    // L-Pentomino (vertical, right)
+    kopfteilVerschieben(new int[] {0, 1, 2, 3, 9}, 0, false);
 
     // I2-Pentomino
     kopfteilVerschieben(new int[] {0, 1, 2, 3, 4}, 0, true);
