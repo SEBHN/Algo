@@ -96,7 +96,7 @@ class DLXNodeOld { // represents 1 element or header
     h.posH = 0;
     h.posV = 0;
 
-    n = 2;
+    n = 3;
 
     matrixLine = 1;
     maxNumber = n * 6;
@@ -114,13 +114,13 @@ class DLXNodeOld { // represents 1 element or header
 
 
     long start = System.nanoTime();
-    // calcCross();
+    calcCross();
     // calcMono();
     // calcU_UP();
     // calcU_DOWN();
     // calcU_LEFT();
     // calcU_RIGHT();
-    calcL_R0();
+    // calcL_R0();
     // calcL_R1();
     // calcL_R2();
     // calcL_R3();
@@ -305,10 +305,10 @@ class DLXNodeOld { // represents 1 element or header
     int d = 9;
     int e = 14;
 
-    if (n > 2) {
-      List<Integer> figure = Arrays.asList(a, b, c, d, e);
-      calculateFiguresPosition(figure, 3);
-    }
+    List<Integer> figure = Arrays.asList(a, b, c, d, e);
+    int width = 3;
+    int height = 3;
+    calculateFiguresPosition(figure, height, n - width);
 
   }
 
@@ -369,9 +369,37 @@ class DLXNodeOld { // represents 1 element or header
     }
   }
 
-  private static void CalculateFiguresPosition(List<Integer> figures, int downShifts,
-      int righShifts) {
+  private static void calculateFiguresPosition(List<Integer> figures, int height, int width) {
+    if (width > n || width < 0) {
+      System.out.println("no positions, cant fit figure");
+      return;
+    }
+    for (Integer integer : figures) {
+      addNode(matrixLine, integer);
+    }
+    matrixLine++;
 
+    for (int i = 0; i <= height; i++) {
+      ArrayList<Integer> plusSixFigures = new ArrayList<>(figures);
+      for (int g = 0; g < width; g++) {
+        for (int j = 0; j < plusSixFigures.size(); j++) {
+          Integer current = plusSixFigures.get(j);
+          current += 6;
+          plusSixFigures.set(j, current);
+
+          addNode(matrixLine, current);
+        }
+        matrixLine++;
+      }
+
+
+      for (int j = 0; j < figures.size(); j++) {
+        int elementPlusOne = figures.get(j) + 1;
+        figures.set(j, elementPlusOne);
+        addNode(matrixLine, elementPlusOne);
+      }
+      matrixLine++;
+    }
   }
 
   private static void calculateFiguresPosition(List<Integer> figures, int downShifts) {
