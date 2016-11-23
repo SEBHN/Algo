@@ -114,12 +114,16 @@ class DLXNodeOld { // represents 1 element or header
 
 
     long start = System.nanoTime();
-    calcCross();
-    calcMono();
-    calcU_UP();
-    calcU_DOWN();
-    calcU_LEFT();
-    calcU_RIGHT();
+    // calcCross();
+    // calcMono();
+    // calcU_UP();
+    // calcU_DOWN();
+    // calcU_LEFT();
+    // calcU_RIGHT();
+    calcL_R0();
+    // calcL_R1();
+    // calcL_R2();
+    // calcL_R3();
 
     long ende = System.nanoTime();
     System.out.println((ende - start) / 10000 + "ms for matrix generation");
@@ -208,7 +212,7 @@ class DLXNodeOld { // represents 1 element or header
   }
 
   private static void addNode(int posV, int posH) {
-    // System.out.println("add node: posV=" + posV + " posH=" + posH);
+    System.out.println("add node: posV=" + posV + " posH=" + posH);
     DLXNodeOld node = new DLXNodeOld();
     DLXNodeOld temp = gotoHeaderIndex(posH); // goto header index
     node.posH = posH;
@@ -329,6 +333,30 @@ class DLXNodeOld { // represents 1 element or header
   public static void calcU_RIGHT() {
     if (n > 1) {
       calculateFiguresPosition(Arrays.asList(1, 2, 3, 9, 7), 3);
+    }
+  }
+
+  public static void calcL_R0() {
+    if (n > 1) {
+      calculateFiguresPosition(Arrays.asList(1, 2, 3, 4, 10), 2);
+    }
+  }
+
+  public static void calcL_R1() {
+    if (n > 3) {
+      calculateFiguresPosition(Arrays.asList(2, 8, 14, 20, 19), 4);
+    }
+  }
+
+  public static void calcL_R2() {
+    if (n > 1) {
+      calculateFiguresPosition(Arrays.asList(1, 7, 8, 9, 10), 2);
+    }
+  }
+
+  public static void calcL_R3() {
+    if (n > 3) {
+      calculateFiguresPosition(Arrays.asList(1, 2, 13, 7, 19), 4);
     }
   }
 
