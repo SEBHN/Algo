@@ -96,7 +96,7 @@ class DLXNodeOld { // represents 1 element or header
     h.posH = 0;
     h.posV = 0;
 
-    n = 3;
+    n = 4;
 
     matrixLine = 1;
     maxNumber = n * 6;
@@ -114,14 +114,14 @@ class DLXNodeOld { // represents 1 element or header
 
 
     long start = System.nanoTime();
-    calcCross();
+    // calcCross();
     // calcMono();
     // calcU_UP();
     // calcU_DOWN();
     // calcU_LEFT();
     // calcU_RIGHT();
     // calcL_R0();
-    // calcL_R1();
+    calcL_R1();
     // calcL_R2();
     // calcL_R3();
 
@@ -308,56 +308,59 @@ class DLXNodeOld { // represents 1 element or header
     List<Integer> figure = Arrays.asList(a, b, c, d, e);
     int width = 3;
     int height = 3;
-    calculateFiguresPosition(figure, height, n - width);
+    calculateFiguresPosition(figure, height, width);
 
   }
 
   public static void calcU_UP() {
-    if (n > 2) {
-      calculateFiguresPosition(Arrays.asList(1, 2, 13, 8, 14), 4);
-    }
+    calculateFiguresPosition(Arrays.asList(1, 2, 8, 13, 14), 4, 3);
   }
 
   public static void calcU_DOWN() {
-    if (n > 2) {
-      calculateFiguresPosition(Arrays.asList(1, 2, 7, 13, 14), 4);
-    }
+    calculateFiguresPosition(Arrays.asList(1, 2, 7, 13, 14), 4, 3);
   }
 
   public static void calcU_LEFT() {
-    if (n > 1) {
-      calculateFiguresPosition(Arrays.asList(1, 3, 7, 9, 8), 3);
-    }
+    calculateFiguresPosition(Arrays.asList(1, 3, 7, 9, 8), 3, 2);
   }
 
   public static void calcU_RIGHT() {
-    if (n > 1) {
-      calculateFiguresPosition(Arrays.asList(1, 2, 3, 9, 7), 3);
-    }
+    calculateFiguresPosition(Arrays.asList(1, 2, 3, 9, 7), 3, 2);
   }
 
+  /**
+   * |<br>
+   * |<br>
+   * |_<br>
+   */
   public static void calcL_R0() {
-    if (n > 1) {
-      calculateFiguresPosition(Arrays.asList(1, 2, 3, 4, 10), 2);
-    }
+    calculateFiguresPosition(Arrays.asList(1, 2, 3, 4, 10), 2, 2);
   }
 
+  /**
+   * ___|
+   */
   public static void calcL_R1() {
-    if (n > 3) {
-      calculateFiguresPosition(Arrays.asList(2, 8, 14, 20, 19), 4);
-    }
+    calculateFiguresPosition(Arrays.asList(2, 8, 14, 20, 19), 4, 4);
   }
 
+  /**
+   * _<br>
+   * .|<br>
+   * .|<br>
+   * .|<br>
+   * .|
+   */
   public static void calcL_R2() {
-    if (n > 1) {
-      calculateFiguresPosition(Arrays.asList(1, 7, 8, 9, 10), 2);
-    }
+    calculateFiguresPosition(Arrays.asList(1, 7, 8, 9, 10), 2, 2);
   }
 
+  /**
+   * .____<br>
+   * |
+   */
   public static void calcL_R3() {
-    if (n > 3) {
-      calculateFiguresPosition(Arrays.asList(1, 2, 13, 7, 19), 4);
-    }
+    calculateFiguresPosition(Arrays.asList(1, 2, 13, 7, 19), 4, 4);
   }
 
 
@@ -369,57 +372,61 @@ class DLXNodeOld { // represents 1 element or header
     }
   }
 
-  private static void calculateFiguresPosition(List<Integer> figures, int height, int width) {
-    if (width > n || width < 0) {
+  private static void calculateFiguresPosition(List<Integer> figures, int downShifts, int width) {
+    int shiftsRight = n - width;
+    if (shiftsRight > n || shiftsRight < 0) {
       System.out.println("no positions, cant fit figure");
       return;
     }
-    for (Integer integer : figures) {
-      addNode(matrixLine, integer);
+    insertFigure(figures);
+    for (int i = 0; i < downShifts; i++) {
+      List<Integer> plusSixFigures = new ArrayList<>(figures);
+      for (int g = 0; g < shiftsRight; g++) {
+        shiftRight(plusSixFigures);
+      }
+      shiftDown(figures);
     }
-    matrixLine++;
 
-    for (int i = 0; i <= height; i++) {
-      ArrayList<Integer> plusSixFigures = new ArrayList<>(figures);
-      for (int g = 0; g < width; g++) {
-        for (int j = 0; j < plusSixFigures.size(); j++) {
-          Integer current = plusSixFigures.get(j);
-          current += 6;
-          plusSixFigures.set(j, current);
-
-          addNode(matrixLine, current);
-        }
-        matrixLine++;
-      }
-
-
-      for (int j = 0; j < figures.size(); j++) {
-        int elementPlusOne = figures.get(j) + 1;
-        figures.set(j, elementPlusOne);
-        addNode(matrixLine, elementPlusOne);
-      }
-      matrixLine++;
+    if (shiftsRight > 0) {
+      shiftRight(figures);
     }
   }
 
-  private static void calculateFiguresPosition(List<Integer> figures, int downShifts) {
+  private static void insertFigure(List<Integer> figures) {
     for (Integer integer : figures) {
       addNode(matrixLine, integer);
     }
     matrixLine++;
+  }
+
+  private static void shiftDown(List<Integer> figures) {
+    for (int j = 0; j < figures.size(); j++) {
+      int elementPlusOne = figures.get(j) + 1;
+      figures.set(j, elementPlusOne);
+      addNode(matrixLine, elementPlusOne);
+    }
+    matrixLine++;
+  }
+
+  private static void shiftRight(List<Integer> plusSixFigures) {
+    for (int j = 0; j < plusSixFigures.size(); j++) {
+      Integer current = plusSixFigures.get(j);
+      current += 6;
+      plusSixFigures.set(j, current);
+
+      addNode(matrixLine, current);
+    }
+    matrixLine++;
+  }
+
+  private static void calculateFiguresPosition(List<Integer> figures, int downShifts) {
+    insertFigure(figures);
 
     for (int i = 0; i <= downShifts; i++) {
       ArrayList<Integer> plusSixFigures = new ArrayList<>(figures);
       int currentMaxHorizontal = plusSixFigures.get(plusSixFigures.size() - 1) + 6;
       while (currentMaxHorizontal <= maxNumber) {
-        for (int j = 0; j < plusSixFigures.size(); j++) {
-          Integer current = plusSixFigures.get(j);
-          current += 6;
-          plusSixFigures.set(j, current);
-
-          addNode(matrixLine, current);
-        }
-        matrixLine++;
+        shiftRight(plusSixFigures);
         currentMaxHorizontal = plusSixFigures.get(plusSixFigures.size() - 1) + 6;
       }
 
