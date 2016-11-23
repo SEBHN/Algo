@@ -20,6 +20,7 @@ class DLXNodeOld { // represents 1 element or header
   static DLXNodeOld[] headers;
   static int matrixLine;
   static int maxNumber;
+  static int n;
 
   DLXNodeOld() {
     C = L = R = U = D = this;
@@ -95,7 +96,7 @@ class DLXNodeOld { // represents 1 element or header
     h.posH = 0;
     h.posV = 0;
 
-    int n = 7;
+    n = 1;
 
     matrixLine = 1;
     maxNumber = n * 6;
@@ -300,25 +301,35 @@ class DLXNodeOld { // represents 1 element or header
     int d = 9;
     int e = 14;
 
-    List<Integer> figure = Arrays.asList(a, b, c, d, e);
+    if (n > 2) {
+      List<Integer> figure = Arrays.asList(a, b, c, d, e);
+      calculateFiguresPosition(figure, 3);
+    }
 
-    calculateFiguresPosition(figure, 3);
   }
 
   public static void calcU_UP() {
-    calculateFiguresPosition(Arrays.asList(1, 2, 13, 8, 14), 4);
+    if (n > 2) {
+      calculateFiguresPosition(Arrays.asList(1, 2, 13, 8, 14), 4);
+    }
   }
 
   public static void calcU_DOWN() {
-    calculateFiguresPosition(Arrays.asList(1, 2, 7, 13, 14), 4);
+    if (n > 2) {
+      calculateFiguresPosition(Arrays.asList(1, 2, 7, 13, 14), 4);
+    }
   }
 
   public static void calcU_LEFT() {
-    calculateFiguresPosition(Arrays.asList(1, 3, 7, 9, 8), 3);
+    if (n > 1) {
+      calculateFiguresPosition(Arrays.asList(1, 3, 7, 9, 8), 3);
+    }
   }
 
   public static void calcU_RIGHT() {
-    calculateFiguresPosition(Arrays.asList(1, 2, 3, 9, 7), 3);
+    if (n > 1) {
+      calculateFiguresPosition(Arrays.asList(1, 2, 3, 9, 7), 3);
+    }
   }
 
 
