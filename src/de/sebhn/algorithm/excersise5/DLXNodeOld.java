@@ -96,7 +96,7 @@ class DLXNodeOld { // represents 1 element or header
     h.posH = 0;
     h.posV = 0;
 
-    n = 1;
+    n = 2;
 
     matrixLine = 1;
     maxNumber = n * 6;
@@ -333,6 +333,14 @@ class DLXNodeOld { // represents 1 element or header
   }
 
 
+
+  public static void calcMono() {
+    for (int i = 0; i < maxNumber; i++) {
+      addNode(matrixLine, i + 1);
+      matrixLine++;
+    }
+  }
+
   private static void calculateFiguresPosition(List<Integer> figures, int downShifts) {
     for (Integer integer : figures) {
       addNode(matrixLine, integer);
@@ -364,13 +372,6 @@ class DLXNodeOld { // represents 1 element or header
       if (hasNotReachedVerticalEnd) {
         matrixLine++;
       }
-    }
-  }
-
-  public static void calcMono() {
-    for (int i = 0; i < maxNumber; i++) {
-      addNode(matrixLine, i + 1);
-      matrixLine++;
     }
   }
 
