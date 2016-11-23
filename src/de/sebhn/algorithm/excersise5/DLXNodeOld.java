@@ -97,6 +97,12 @@ class DLXNodeOld { // represents 1 element or header
     addNode(1, 6);
     addNode(1, 7);
 
+    addNode(2, 1);
+    addNode(2, 3);
+    addNode(2, 5);
+    addNode(2, 6);
+    addNode(2, 7);
+
     /*
      * for (int i = 0; i < amountOfHeaders; i++) { DLXNodeOld columnNode = gotoIndex(i);
      * System.out.println("Header-Column: " + columnNode.posH); System.out.println("Row x: " +
@@ -106,9 +112,8 @@ class DLXNodeOld { // represents 1 element or header
      * (!columnNode.equals(verticaclNode)); }
      */
 
-    DLXNodeOld node = gotoHeaderIndex(0);
-    // System.out.println(node.posV + " " + node.posV);
-    for (int i = 0; i < amountOfHeaders + 1; i++) {
+    DLXNodeOld node = h.R.R.R.D.D.D.D;
+    for (int i = 0; i < 2 * amountOfHeaders + 1; i++) {
       System.out.println(node.posV + " " + node.posH);
       node = node.R;
     }
