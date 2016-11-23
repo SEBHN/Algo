@@ -369,6 +369,11 @@ class DLXNodeOld { // represents 1 element or header
     }
   }
 
+  private static void CalculateFiguresPosition(List<Integer> figures, int downShifts,
+      int righShifts) {
+
+  }
+
   private static void calculateFiguresPosition(List<Integer> figures, int downShifts) {
     for (Integer integer : figures) {
       addNode(matrixLine, integer);
