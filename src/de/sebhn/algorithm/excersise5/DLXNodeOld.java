@@ -1,5 +1,6 @@
 package de.sebhn.algorithm.excersise5;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -94,7 +95,7 @@ class DLXNodeOld { // represents 1 element or header
     h.posH = 0;
     h.posV = 0;
 
-    int n = 4;
+    int n = 7;
 
     matrixLine = 1;
     maxNumber = n * 6;
@@ -111,19 +112,27 @@ class DLXNodeOld { // represents 1 element or header
      */
 
 
-
+    long start = System.nanoTime();
     calcCross();
     calcMono();
+    calcU_UP();
+    calcU_DOWN();
+    calcU_LEFT();
+    calcU_RIGHT();
 
-    DLXNodeOld node = h.R;
-    for (int i = 0; i < maxNumber + 1; i++) {
-      System.out.print(node.posV + " " + node.posH + " | ");
-      node = node.R;
-    }
+    long ende = System.nanoTime();
+    System.out.println((ende - start) / 10000 + "ms for matrix generation");
 
+    // DLXNodeOld node = h.R;
+    // for (int i = 0; i < maxNumber + 1; i++) {
+    // System.out.print(node.posV + " " + node.posH + " | ");
+    // node = node.R;
+    // }
 
+    start = System.nanoTime();
     search(0);
-    // System.out.println(matrixLine - 1);
+    ende = System.nanoTime();
+    System.out.println((ende - start) / 10000 + "ms for search");
     System.out.println(cnt);
   }
 
@@ -198,7 +207,7 @@ class DLXNodeOld { // represents 1 element or header
   }
 
   private static void addNode(int posV, int posH) {
-    System.out.println("add node: posV=" + posV + " posH=" + posH);
+    // System.out.println("add node: posV=" + posV + " posH=" + posH);
     DLXNodeOld node = new DLXNodeOld();
     DLXNodeOld temp = gotoHeaderIndex(posH); // goto header index
     node.posH = posH;
@@ -293,24 +302,52 @@ class DLXNodeOld { // represents 1 element or header
 
     List<Integer> figure = Arrays.asList(a, b, c, d, e);
 
-    for (Integer integer : figure) {
+    calculateFiguresPosition(figure, 3);
+  }
+
+  public static void calcU_UP() {
+    calculateFiguresPosition(Arrays.asList(1, 2, 13, 8, 14), 4);
+  }
+
+  public static void calcU_DOWN() {
+    calculateFiguresPosition(Arrays.asList(1, 2, 7, 13, 14), 4);
+  }
+
+  public static void calcU_LEFT() {
+    calculateFiguresPosition(Arrays.asList(1, 3, 7, 9, 8), 3);
+  }
+
+  public static void calcU_RIGHT() {
+    calculateFiguresPosition(Arrays.asList(1, 2, 3, 9, 7), 3);
+  }
+
+
+  private static void calculateFiguresPosition(List<Integer> figures, int downShifts) {
+    for (Integer integer : figures) {
       addNode(matrixLine, integer);
     }
     matrixLine++;
 
-    for (int i = 0; i < 4; i++) {
-      int currentMaxHorizontal = figure.get(figure.size() - 1) + 6;
-      for (int j = 0; j < figure.size() && currentMaxHorizontal < maxNumber; j++) {
-        Integer current = figure.get(j);
-        current += 6;
-        addNode(matrixLine, current);
+    for (int i = 0; i <= downShifts; i++) {
+      ArrayList<Integer> plusSixFigures = new ArrayList<>(figures);
+      int currentMaxHorizontal = plusSixFigures.get(plusSixFigures.size() - 1) + 6;
+      while (currentMaxHorizontal <= maxNumber) {
+        for (int j = 0; j < plusSixFigures.size(); j++) {
+          Integer current = plusSixFigures.get(j);
+          current += 6;
+          plusSixFigures.set(j, current);
+
+          addNode(matrixLine, current);
+        }
+        matrixLine++;
+        currentMaxHorizontal = plusSixFigures.get(plusSixFigures.size() - 1) + 6;
       }
-      matrixLine++;
-      int currentMaxVertical = figure.get(figure.size() - 2) + 1;
+
+      int currentMaxVertical = figures.get(figures.size() - 2) + 1;
       boolean hasNotReachedVerticalEnd = currentMaxVertical < 13;
-      for (int j = 0; j < figure.size() && hasNotReachedVerticalEnd; j++) {
-        int elementPlusOne = figure.get(j) + 1;
-        figure.set(j, elementPlusOne);
+      for (int j = 0; j < figures.size() && hasNotReachedVerticalEnd; j++) {
+        int elementPlusOne = figures.get(j) + 1;
+        figures.set(j, elementPlusOne);
         addNode(matrixLine, elementPlusOne);
       }
       if (hasNotReachedVerticalEnd) {
