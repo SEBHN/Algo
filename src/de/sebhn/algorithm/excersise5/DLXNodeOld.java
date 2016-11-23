@@ -132,7 +132,7 @@ class DLXNodeOld { // represents 1 element or header
     start = System.nanoTime();
     search(0);
     ende = System.nanoTime();
-    System.out.println((ende - start) / 10000 + "ms for search");
+    System.out.println((ende - start) / 1000000000 + "s for search");
     System.out.println(cnt);
   }
 
