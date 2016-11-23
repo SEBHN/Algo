@@ -13,6 +13,7 @@ class DLXNodeOld { // represents 1 element or header
   int posH;
   int posV;
   static int indexLength;
+  static DLXNodeOld[] headers;
 
   DLXNodeOld() {
     C = L = R = U = D = this;
@@ -85,10 +86,10 @@ class DLXNodeOld { // represents 1 element or header
   public static void main(String[] args) {
     cnt = 0; // set counter for solutions to zero
     h = new DLXNodeOld(); // create header
-    h.posH = -1;
-    h.posV = -1;
+    h.posH = 0;
+    h.posV = 0;
 
-    int amountOfHeaders = 8;
+    int amountOfHeaders = 7;
     addHeader(amountOfHeaders);
     addNode(1, 1);
     addNode(1, 3);
@@ -105,9 +106,11 @@ class DLXNodeOld { // represents 1 element or header
      * (!columnNode.equals(verticaclNode)); }
      */
 
-    for (int i = 0; i < amountOfHeaders; i++) {
-      DLXNodeOld node = h.R.R.D;
-      // System.out.println(node.posV + " " + node.posH);
+    DLXNodeOld node = gotoHeaderIndex(0);
+    // System.out.println(node.posV + " " + node.posV);
+    for (int i = 0; i < amountOfHeaders + 1; i++) {
+      System.out.println(node.posV + " " + node.posH);
+      node = node.R;
     }
   }
 
@@ -116,12 +119,15 @@ class DLXNodeOld { // represents 1 element or header
    */
   public static void addHeader(int n) {
     indexLength = n;
+    headers = new DLXNodeOld[n + 1];
+    headers[0] = h;
     DLXNodeOld tempNode;
     int x = 0;
     for (int i = 0; i < n; i++) {
       DLXNodeOld node = new DLXNodeOld();
-      node.posH = x++; // set index to header
-      node.posV = -1; // set vertical position to -1 to signal header
+      node.posH = ++x; // set index to header
+      node.posV = 0; // set vertical position to 0 to signal header
+      headers[x] = node;
       if (h.L == h) {
         // connect header to node
         h.L = node;
@@ -174,9 +180,13 @@ class DLXNodeOld { // represents 1 element or header
     return node;
   }
 
+  private static DLXNodeOld gotoHeaderIndex(int posH) {
+    return headers[posH];
+  }
+
   private static void addNode(int posV, int posH) {
     DLXNodeOld node = new DLXNodeOld();
-    DLXNodeOld temp = gotoIndex(posH); // goto header index
+    DLXNodeOld temp = gotoHeaderIndex(posH); // goto header index
     node.posH = posH;
     node.posV = posV;
     node.C = temp; // direct link to header
@@ -186,6 +196,7 @@ class DLXNodeOld { // represents 1 element or header
       node.U = temp;
       node.D = temp;
       connectRight(node);
+      connectLeft(node);
       return;
     } else {
       for (int i = 0; i < 6; i++) {
@@ -199,6 +210,7 @@ class DLXNodeOld { // represents 1 element or header
             node.D = node.C;
             node.C.U = node;
             connectRight(node);
+            connectLeft(node);
             return;
           }
         }
@@ -209,6 +221,7 @@ class DLXNodeOld { // represents 1 element or header
           temp.D = node; // connect lower node to node
           node.U = temp; // connect node to lower node}
           connectRight(node);
+          connectLeft(node);
           return;
         }
       }
@@ -226,8 +239,30 @@ class DLXNodeOld { // represents 1 element or header
         if (temp.posV == posV) {
           node.R = temp;
           temp.L = node;
-          System.out.println("connected right " + node.posV + " " + node.posH + " mit " + temp.posV
-              + " " + temp.posH);
+          // System.out.println("connected right " + node.posV + " " + node.posH + " mit " +
+          // temp.posV
+          // + " " + temp.posH);
+          return;
+        } else {
+        }
+      }
+    }
+  }
+
+  public static void connectLeft(DLXNodeOld node) {
+    // connection to the right
+    int posV = node.posV;
+    DLXNodeOld temp = node;
+    for (int i = 0; i < indexLength; i++) {
+      temp = temp.C.L;
+      while (temp.D != temp.C) {
+        temp = temp.D;
+        if (temp.posV == posV) {
+          temp.R = node;
+          node.L = temp;
+          // System.out.println("connected left " + node.posV + " " + node.posH + " mit " +
+          // temp.posV
+          // + " " + temp.posH);
           return;
         } else {
         }
