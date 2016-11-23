@@ -120,9 +120,9 @@ class DLXNodeOld { // represents 1 element or header
     // calcU_DOWN();
     // calcU_LEFT();
     // calcU_RIGHT();
-    // calcL_R0();
+    calcL_R0();
     // calcL_R1();
-    calcL_R2();
+    // calcL_R2();
     // calcL_R3();
     // calcL_R4();
     // calcL_R5();
@@ -420,14 +420,15 @@ class DLXNodeOld { // represents 1 element or header
     insertFigure(figures);
     for (int i = 0; i < downShifts; i++) {
       List<Integer> plusSixFigures = new ArrayList<>(figures);
-      for (int g = 0; g < shiftsRight; g++) {
-        shiftRight(plusSixFigures);
-      }
+      shiftRight(shiftsRight, plusSixFigures);
       shiftDown(figures);
     }
+    shiftRight(shiftsRight, figures);
+  }
 
-    if (shiftsRight > 0) {
-      shiftRight(figures);
+  private static void shiftRight(int shiftsRight, List<Integer> plusSixFigures) {
+    for (int g = 0; g < shiftsRight; g++) {
+      shiftOneRight(plusSixFigures);
     }
   }
 
@@ -447,7 +448,7 @@ class DLXNodeOld { // represents 1 element or header
     matrixLine++;
   }
 
-  private static void shiftRight(List<Integer> plusSixFigures) {
+  private static void shiftOneRight(List<Integer> plusSixFigures) {
     for (int j = 0; j < plusSixFigures.size(); j++) {
       Integer current = plusSixFigures.get(j);
       current += 6;
@@ -465,7 +466,7 @@ class DLXNodeOld { // represents 1 element or header
       ArrayList<Integer> plusSixFigures = new ArrayList<>(figures);
       int currentMaxHorizontal = plusSixFigures.get(plusSixFigures.size() - 1) + 6;
       while (currentMaxHorizontal <= maxNumber) {
-        shiftRight(plusSixFigures);
+        shiftOneRight(plusSixFigures);
         currentMaxHorizontal = plusSixFigures.get(plusSixFigures.size() - 1) + 6;
       }
 
