@@ -14,6 +14,8 @@ class DLXNodeOld { // represents 1 element or header
   int posV;
   static int indexLength;
   static DLXNodeOld[] headers;
+  static int matrixLine;
+  static int maxNumber;
 
   DLXNodeOld() {
     C = L = R = U = D = this;
@@ -89,7 +91,10 @@ class DLXNodeOld { // represents 1 element or header
     h.posH = 0;
     h.posV = 0;
 
-    int amountOfHeaders = 7;
+    matrixLine = 1;
+    maxNumber = 30;
+
+    int amountOfHeaders = 30;
     addHeader(amountOfHeaders);
     addNode(1, 1);
     addNode(1, 3);
@@ -272,6 +277,30 @@ class DLXNodeOld { // represents 1 element or header
         } else {
         }
       }
+    }
+  }
+
+  public static void calcCross() {
+    int a = 2;
+    int b = 7;
+    int c = 8;
+    int d = 9;
+    int e = 14;
+
+    for (int i = 0; i < 6; i++) {
+      addNode(matrixLine, a++);
+      addNode(matrixLine, b++);
+      addNode(matrixLine, c++);
+      addNode(matrixLine, d++);
+      addNode(matrixLine, e++);
+      matrixLine++;
+    }
+  }
+
+  public static void calcMono() {
+    for (int i = 0; i < maxNumber; i++) {
+      addNode(matrixLine, i + 1);
+      matrixLine++;
     }
   }
 
