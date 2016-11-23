@@ -88,26 +88,26 @@ class DLXNodeOld { // represents 1 element or header
     h.posH = -1;
     h.posV = -1;
 
-    int amountOfHeaders = 15;
+    int amountOfHeaders = 8;
     addHeader(amountOfHeaders);
-    addNode(4, 6);
-    addNode(5, 7);
-    addNode(4, 1);
-    addNode(4, 3);
-    addNode(4, 2);
+    addNode(1, 1);
+    addNode(1, 3);
+    addNode(1, 5);
+    addNode(1, 6);
+    addNode(1, 7);
+
+    /*
+     * for (int i = 0; i < amountOfHeaders; i++) { DLXNodeOld columnNode = gotoIndex(i);
+     * System.out.println("Header-Column: " + columnNode.posH); System.out.println("Row x: " +
+     * columnNode.posV); DLXNodeOld verticaclNode = columnNode.D; System.out.println("Row o: " +
+     * verticaclNode.posV); do { verticaclNode = verticaclNode.D; // if (verticaclNode.posV != -1) {
+     * System.out.println("Row i: " + verticaclNode.posV); // } } while
+     * (!columnNode.equals(verticaclNode)); }
+     */
 
     for (int i = 0; i < amountOfHeaders; i++) {
-      DLXNodeOld columnNode = gotoIndex(i);
-      System.out.println("Header-Column: " + columnNode.posH);
-      System.out.println("Row x: " + columnNode.posV);
-      DLXNodeOld verticaclNode = columnNode.D;
-      System.out.println("Row o: " + verticaclNode.posV);
-      do {
-        verticaclNode = verticaclNode.D;
-        // if (verticaclNode.posV != -1) {
-        System.out.println("Row i: " + verticaclNode.posV);
-        // }
-      } while (!columnNode.equals(verticaclNode));
+      DLXNodeOld node = h.R.R.D;
+      // System.out.println(node.posV + " " + node.posH);
     }
   }
 
@@ -174,7 +174,7 @@ class DLXNodeOld { // represents 1 element or header
     return node;
   }
 
-  private static void addNode(int posH, int posV) {
+  private static void addNode(int posV, int posH) {
     DLXNodeOld node = new DLXNodeOld();
     DLXNodeOld temp = gotoIndex(posH); // goto header index
     node.posH = posH;
@@ -185,6 +185,7 @@ class DLXNodeOld { // represents 1 element or header
       temp.D = node;
       node.U = temp;
       node.D = temp;
+      connectRight(node);
       return;
     } else {
       for (int i = 0; i < 6; i++) {
@@ -197,6 +198,7 @@ class DLXNodeOld { // represents 1 element or header
             node.U = temp;
             node.D = node.C;
             node.C.U = node;
+            connectRight(node);
             return;
           }
         }
@@ -206,9 +208,31 @@ class DLXNodeOld { // represents 1 element or header
           temp.D.U = node; // connect higher node to node
           temp.D = node; // connect lower node to node
           node.U = temp; // connect node to lower node}
+          connectRight(node);
           return;
         }
       }
     }
   }
+
+  public static void connectRight(DLXNodeOld node) {
+    // connection to the right
+    int posV = node.posV;
+    DLXNodeOld temp = node;
+    for (int i = 0; i < indexLength; i++) {
+      temp = temp.C.R;
+      while (temp.D != temp.C) {
+        temp = temp.D;
+        if (temp.posV == posV) {
+          node.R = temp;
+          temp.L = node;
+          System.out.println("connected right " + node.posV + " " + node.posH + " mit " + temp.posV
+              + " " + temp.posH);
+          return;
+        } else {
+        }
+      }
+    }
+  }
+
 }
