@@ -96,7 +96,7 @@ class DLXNodeOld { // represents 1 element or header
     h.posH = 0;
     h.posV = 0;
 
-    n = 2;
+    n = 4;
 
     matrixLine = 1;
     maxNumber = n * 6;
@@ -114,20 +114,20 @@ class DLXNodeOld { // represents 1 element or header
 
 
     long start = System.nanoTime();
-    calcCross();
-    calcMono();
-    calcU_UP();
-    calcU_DOWN();
-    calcU_LEFT();
-    calcU_RIGHT();
-    calcL_R0();
-    calcL_R1();
+    // calcCross();
+    // calcMono();
+    // calcU_UP();
+    // calcU_DOWN();
+    // calcU_LEFT();
+    // calcU_RIGHT();
+    // calcL_R0();
+    // calcL_R1();
     calcL_R2();
-    calcL_R3();
-    calcL_R4();
-    calcL_R5();
-    calcL_R6();
-    calcL_R7();
+    // calcL_R3();
+    // calcL_R4();
+    // calcL_R5();
+    // calcL_R6();
+    // calcL_R7();
 
     long ende = System.nanoTime();
     System.out.println((ende - start) / 10000 + "ms for matrix generation");
@@ -393,10 +393,13 @@ class DLXNodeOld { // represents 1 element or header
   }
 
   /**
-   * ___|
+   * ._<br>
+   * |<br>
+   * |<br>
+   * |
    */
   public static void calcL_R7() {
-    calculateFiguresPosition(Arrays.asList(2, 8, 14, 20, 19), 4, 4);
+    calculateFiguresPosition(Arrays.asList(1, 2, 3, 4, 7), 4, 4);
   }
 
 
