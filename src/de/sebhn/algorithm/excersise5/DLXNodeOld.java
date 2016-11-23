@@ -1,5 +1,8 @@
 package de.sebhn.algorithm.excersise5;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Class DLXNode represents a matrix element of the cover matrix with value 1 links go to up down
  * left right neigbors, and column header can also be used as colm header or root of column headers
@@ -91,22 +94,12 @@ class DLXNodeOld { // represents 1 element or header
     h.posH = 0;
     h.posV = 0;
 
+    int n = 4;
+
     matrixLine = 1;
-    maxNumber = 30;
+    maxNumber = n * 6;
 
-    int amountOfHeaders = 30;
-    addHeader(amountOfHeaders);
-    addNode(1, 1);
-    addNode(1, 3);
-    addNode(1, 5);
-    addNode(1, 6);
-    addNode(1, 7);
-
-    addNode(2, 1);
-    addNode(2, 3);
-    addNode(2, 5);
-    addNode(2, 6);
-    addNode(2, 7);
+    addHeader(maxNumber);
 
     /*
      * for (int i = 0; i < amountOfHeaders; i++) { DLXNodeOld columnNode = gotoIndex(i);
@@ -117,11 +110,21 @@ class DLXNodeOld { // represents 1 element or header
      * (!columnNode.equals(verticaclNode)); }
      */
 
-    DLXNodeOld node = h.R.R.R.D.D.D.D;
-    for (int i = 0; i < 2 * amountOfHeaders + 1; i++) {
-      System.out.println(node.posV + " " + node.posH);
+
+
+    calcCross();
+    calcMono();
+
+    DLXNodeOld node = h.R;
+    for (int i = 0; i < maxNumber + 1; i++) {
+      System.out.print(node.posV + " " + node.posH + " | ");
       node = node.R;
     }
+
+
+    search(0);
+    // System.out.println(matrixLine - 1);
+    System.out.println(cnt);
   }
 
   /**
@@ -195,6 +198,7 @@ class DLXNodeOld { // represents 1 element or header
   }
 
   private static void addNode(int posV, int posH) {
+    System.out.println("add node: posV=" + posV + " posH=" + posH);
     DLXNodeOld node = new DLXNodeOld();
     DLXNodeOld temp = gotoHeaderIndex(posH); // goto header index
     node.posH = posH;
@@ -287,13 +291,31 @@ class DLXNodeOld { // represents 1 element or header
     int d = 9;
     int e = 14;
 
-    for (int i = 0; i < 6; i++) {
-      addNode(matrixLine, a++);
-      addNode(matrixLine, b++);
-      addNode(matrixLine, c++);
-      addNode(matrixLine, d++);
-      addNode(matrixLine, e++);
+    List<Integer> figure = Arrays.asList(a, b, c, d, e);
+
+    for (Integer integer : figure) {
+      addNode(matrixLine, integer);
+    }
+    matrixLine++;
+
+    for (int i = 0; i < 4; i++) {
+      int currentMaxHorizontal = figure.get(figure.size() - 1) + 6;
+      for (int j = 0; j < figure.size() && currentMaxHorizontal < maxNumber; j++) {
+        Integer current = figure.get(j);
+        current += 6;
+        addNode(matrixLine, current);
+      }
       matrixLine++;
+      int currentMaxVertical = figure.get(figure.size() - 2) + 1;
+      boolean hasNotReachedVerticalEnd = currentMaxVertical < 13;
+      for (int j = 0; j < figure.size() && hasNotReachedVerticalEnd; j++) {
+        int elementPlusOne = figure.get(j) + 1;
+        figure.set(j, elementPlusOne);
+        addNode(matrixLine, elementPlusOne);
+      }
+      if (hasNotReachedVerticalEnd) {
+        matrixLine++;
+      }
     }
   }
 
