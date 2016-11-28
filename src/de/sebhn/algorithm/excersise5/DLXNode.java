@@ -114,19 +114,19 @@ class DLXNode { // represents 1 element or header
 
 
     long start = System.nanoTime();
-    // calcCross();
+    calcCross();
     calcMono();
-    // calcU_UP();
-    // calcU_DOWN();
-    // calcU_LEFT();
-    // calcU_RIGHT();
-    // calcL_R0();
-    // calcL_R1();
-    // calcL_R2();
-    // calcL_R3();
+    calcU_UP();
+    calcU_DOWN();
+    calcU_LEFT();
+    calcU_RIGHT();
+    calcL_R0();
+    calcL_R1();
+    calcL_R2();
+    calcL_R3();
     calcL_R4();
-    // calcL_R5();
-    // calcL_R6();
+    calcL_R5();
+    calcL_R6();
     calcL_R7();
 
     long ende = System.nanoTime();
@@ -461,6 +461,8 @@ class DLXNode { // represents 1 element or header
 
   private static void calculateFiguresPosition(List<Integer> figures, int downShifts) {
     insertFigure(figures);
+    DLXNode[] al = new DLXNode[5];
+    int arrayIndex = 0;
 
     for (int i = 0; i <= downShifts; i++) {
       ArrayList<Integer> plusSixFigures = new ArrayList<>(figures);
@@ -475,17 +477,41 @@ class DLXNode { // represents 1 element or header
       for (int j = 0; j < figures.size() && hasNotReachedVerticalEnd; j++) {
         int elementPlusOne = figures.get(j) + 1;
         figures.set(j, elementPlusOne);
-        addNode(matrixLine, elementPlusOne);
+        // addNode(matrixLine, elementPlusOne);
+        al[arrayIndex] = createNode(matrixLine, elementPlusOne);
+        arrayIndex++;
       }
       if (hasNotReachedVerticalEnd) {
         matrixLine++;
+        createLine(al);
+      }
+      al = new DLXNode[5];
+    }
+  }
+
+  private static DLXNode createNode(int posV, int posH) {
+    DLXNode node = new DLXNode();
+    node.posV = posV;
+    node.posH = posH;
+    return node;
+  }
+
+  private static void createLine(DLXNode[] array) {
+    for (int i = 0; i < array.length; i++) {
+      array[i].U = gotoIndex(array[i].posH).U;
+      gotoHeaderIndex(array[i].posH).U.D = array[i];
+      array[i].D = gotoHeaderIndex(array[i].posH);
+      gotoHeaderIndex(array[i].posH).U = array[i];
+      if (i == 0) {
+        array[i].L = array[array.length - 1];
+        array[i].R = array[i + 1];
+      } else if (i == array.length - 1) {
+        array[i].L = array[i - 1];
+        array[i].R = array[0];
+      } else {
+        array[i].L = array[i - 1];
+        array[i].R = array[i + 1];
       }
     }
   }
-  
-  private void createNode(int posV, int posH) {
-    this.posV = posV;
-    this.posH = posH;
-  }
-
 }
