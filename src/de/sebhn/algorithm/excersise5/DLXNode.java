@@ -10,19 +10,19 @@ import java.util.List;
  * matrix is sparsely coded try to do all operations very efficiently see:
  * http://en.wikipedia.org/wiki/Dancing_Links http://arxiv.org/abs/cs/0011047
  */
-class DLXNodeOld { // represents 1 element or header
+class DLXNode { // represents 1 element or header
 
-  DLXNodeOld C; // reference to column-header
-  DLXNodeOld L, R, U, D; // left, right, up, down references
+  DLXNode C; // reference to column-header
+  DLXNode L, R, U, D; // left, right, up, down references
   int posH;
   int posV;
   static int indexLength;
-  static DLXNodeOld[] headers;
+  static DLXNode[] headers;
   static int matrixLine;
   static int maxNumber;
   static int n;
 
-  DLXNodeOld() {
+  DLXNode() {
     C = L = R = U = D = this;
   } // supports circular lists
 
@@ -36,20 +36,20 @@ class DLXNodeOld { // represents 1 element or header
    *
    */
   static int cnt;
-  static DLXNodeOld h;
+  static DLXNode h;
 
   public static void search(int k) { // finds & counts solutions
     if (h.R == h) {
       cnt++;
       return;
     } // if empty: count & done
-    DLXNodeOld c = h.R; // choose next column c
+    DLXNode c = h.R; // choose next column c
     cover(c); // remove c from columns
-    for (DLXNodeOld r = c.D; r != c; r = r.D) { // forall rows with 1 in c
-      for (DLXNodeOld j = r.R; j != r; j = j.R) // forall 1-elements in row
+    for (DLXNode r = c.D; r != c; r = r.D) { // forall rows with 1 in c
+      for (DLXNode j = r.R; j != r; j = j.R) // forall 1-elements in row
         cover(j.C); // remove column
       search(k + 1); // recursion
-      for (DLXNodeOld j = r.L; j != r; j = j.L) // forall 1-elements in row
+      for (DLXNode j = r.L; j != r; j = j.L) // forall 1-elements in row
         uncover(j.C); // backtrack: un-remove
     }
     uncover(c); // un-remove c to columns
@@ -60,14 +60,14 @@ class DLXNodeOld { // represents 1 element or header
    * rows i with 1 element in column c will no longer be found in other column lists than c so
    * column c and rows i are invisible after execution of cover
    * 
-   * @param DLXNodeOld c: header element of column that has to be covered
+   * @param DLXNode c: header element of column that has to be covered
    *
    */
-  public static void cover(DLXNodeOld c) { // remove column c
+  public static void cover(DLXNode c) { // remove column c
     c.R.L = c.L; // remove header
     c.L.R = c.R; // .. from row list
-    for (DLXNodeOld i = c.D; i != c; i = i.D) // forall rows with 1
-      for (DLXNodeOld j = i.R; i != j; j = j.R) { // forall elem in row
+    for (DLXNode i = c.D; i != c; i = i.D) // forall rows with 1
+      for (DLXNode j = i.R; i != j; j = j.R) { // forall elem in row
         j.D.U = j.U; // remove row element
         j.U.D = j.D; // .. from column list
       }
@@ -77,12 +77,12 @@ class DLXNodeOld { // represents 1 element or header
    * uncover "uncovers" a column c of the DLX matrix all operations of cover are undone so column c
    * and rows i are visible again after execution of uncover
    * 
-   * @param DLXNodeOld c: header element of column that has to be uncovered
+   * @param DLXNode c: header element of column that has to be uncovered
    *
    */
-  public static void uncover(DLXNodeOld c) {// undo remove col c
-    for (DLXNodeOld i = c.U; i != c; i = i.U) // forall rows with 1
-      for (DLXNodeOld j = i.L; i != j; j = j.L) { // forall elem in row
+  public static void uncover(DLXNode c) {// undo remove col c
+    for (DLXNode i = c.U; i != c; i = i.U) // forall rows with 1
+      for (DLXNode j = i.L; i != j; j = j.L) { // forall elem in row
         j.D.U = j; // un-remove row elem
         j.U.D = j; // .. to column list
       }
@@ -92,7 +92,7 @@ class DLXNodeOld { // represents 1 element or header
 
   public static void main(String[] args) {
     cnt = 0; // set counter for solutions to zero
-    h = new DLXNodeOld(); // create header
+    h = new DLXNode(); // create header
     h.posH = 0;
     h.posV = 0;
 
@@ -150,12 +150,12 @@ class DLXNodeOld { // represents 1 element or header
    */
   public static void addHeader(int n) {
     indexLength = n;
-    headers = new DLXNodeOld[n + 1];
+    headers = new DLXNode[n + 1];
     headers[0] = h;
-    DLXNodeOld tempNode;
+    DLXNode tempNode;
     int x = 0;
     for (int i = 0; i < n; i++) {
-      DLXNodeOld node = new DLXNodeOld();
+      DLXNode node = new DLXNode();
       node.posH = ++x; // set index to header
       node.posV = 0; // set vertical position to 0 to signal header
       headers[x] = node;
@@ -192,7 +192,7 @@ class DLXNodeOld { // represents 1 element or header
     } else if (obj == null || getClass() != obj.getClass()) {
       return false;
     }
-    DLXNodeOld other = (DLXNodeOld) obj;
+    DLXNode other = (DLXNode) obj;
 
     if (posH != other.posH) {
       return false;
@@ -202,8 +202,8 @@ class DLXNodeOld { // represents 1 element or header
     return true;
   }
 
-  private static DLXNodeOld gotoIndex(int posH) {
-    DLXNodeOld node = new DLXNodeOld();
+  private static DLXNode gotoIndex(int posH) {
+    DLXNode node = new DLXNode();
     node = h.R;
     for (int i = 0; i < posH; i++) {
       node = node.R;
@@ -211,14 +211,14 @@ class DLXNodeOld { // represents 1 element or header
     return node;
   }
 
-  private static DLXNodeOld gotoHeaderIndex(int posH) {
+  private static DLXNode gotoHeaderIndex(int posH) {
     return headers[posH];
   }
 
   private static void addNode(int posV, int posH) {
     System.out.println("add node: posV=" + posV + " posH=" + posH);
-    DLXNodeOld node = new DLXNodeOld();
-    DLXNodeOld temp = gotoHeaderIndex(posH); // goto header index
+    DLXNode node = new DLXNode();
+    DLXNode temp = gotoHeaderIndex(posH); // goto header index
     node.posH = posH;
     node.posV = posV;
     node.C = temp; // direct link to header
@@ -260,10 +260,10 @@ class DLXNodeOld { // represents 1 element or header
     }
   }
 
-  public static void connectRight(DLXNodeOld node) {
+  public static void connectRight(DLXNode node) {
     // connection to the right
     int posV = node.posV;
-    DLXNodeOld temp = node;
+    DLXNode temp = node;
     for (int i = 0; i < indexLength; i++) {
       temp = temp.C.R;
       while (temp.D != temp.C) {
@@ -281,10 +281,10 @@ class DLXNodeOld { // represents 1 element or header
     }
   }
 
-  public static void connectLeft(DLXNodeOld node) {
+  public static void connectLeft(DLXNode node) {
     // connection to the right
     int posV = node.posV;
-    DLXNodeOld temp = node;
+    DLXNode temp = node;
     for (int i = 0; i < indexLength; i++) {
       temp = temp.C.L;
       while (temp.D != temp.C) {
@@ -481,6 +481,11 @@ class DLXNodeOld { // represents 1 element or header
         matrixLine++;
       }
     }
+  }
+  
+  private void createNode(int posV, int posH) {
+    this.posV = posV;
+    this.posH = posH;
   }
 
 }

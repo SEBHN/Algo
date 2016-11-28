@@ -10,18 +10,18 @@ import java.io.InputStreamReader;
  * left right neigbors, and column header can also be used as column header or root of column
  * headers matrix is sparsely coded try to do all operations very efficiently.
  */
-class DLXNode { // represents 1 element or header
-  DLXNode C; // reference to column-header
-  DLXNode L, R, U, D; // left, right, up, down references
+class DLXNodeOld2 { // represents 1 element or header
+  DLXNodeOld2 C; // reference to column-header
+  DLXNodeOld2 L, R, U, D; // left, right, up, down references
 
-  DLXNode() {
+  DLXNodeOld2() {
     C = L = R = U = D = this;
   } // supports circular lists
 }
 
 
 public class PentominoZIPDLX {
-  static DLXNode h, kopfTeil[];
+  static DLXNodeOld2 h, kopfTeil[];
   static long cnt;
   static int n;
 
@@ -70,8 +70,8 @@ public class PentominoZIPDLX {
     boolean moduloErgebnis = true;
 
     for (int i = 0; i + t[5] <= 6 * n - 1; i++) {
-      DLXNode[] dlxArray = {new DLXNode(), new DLXNode(), new DLXNode(), new DLXNode(),
-          new DLXNode(), new DLXNode()};
+      DLXNodeOld2[] dlxArray = {new DLXNodeOld2(), new DLXNodeOld2(), new DLXNodeOld2(), new DLXNodeOld2(),
+          new DLXNodeOld2(), new DLXNodeOld2()};
 
       if (mod >= 1) {
         moduloErgebnis = ueberpruefeModulo(i, mod);
@@ -100,12 +100,12 @@ public class PentominoZIPDLX {
    * zugewiesen.
    */
   public static void matrixKonfigurieren() {
-    h = new DLXNode();
-    kopfTeil = new DLXNode[6 * n];
-    kopfTeil[0] = new DLXNode();
+    h = new DLXNodeOld2();
+    kopfTeil = new DLXNodeOld2[6 * n];
+    kopfTeil[0] = new DLXNodeOld2();
 
     for (int i = 1; i < 6 * n; i++) {
-      kopfTeil[i] = new DLXNode();
+      kopfTeil[i] = new DLXNodeOld2();
       kopfTeil[i].L = kopfTeil[i - 1];
       kopfTeil[i].R = kopfTeil[0];
       kopfTeil[i - 1].R = kopfTeil[i];
@@ -175,13 +175,13 @@ public class PentominoZIPDLX {
       cnt++;
       return;
     } // if empty: count & done
-    DLXNode c = h.R; // choose next column c
+    DLXNodeOld2 c = h.R; // choose next column c
     cover(c); // remove c from columns
-    for (DLXNode r = c.D; r != c; r = r.D) { // forall rows with 1 in c
-      for (DLXNode j = r.R; j != r; j = j.R) // forall 1-elements in row
+    for (DLXNodeOld2 r = c.D; r != c; r = r.D) { // forall rows with 1 in c
+      for (DLXNodeOld2 j = r.R; j != r; j = j.R) // forall 1-elements in row
         cover(j.C);
       sucheUndZaehle(k + 1);
-      for (DLXNode j = r.L; j != r; j = j.L) // forall 1-elements in row
+      for (DLXNodeOld2 j = r.L; j != r; j = j.L) // forall 1-elements in row
         uncover(j.C); // backtrack: un-remove
     }
     uncover(c); // un-remove c to columns
@@ -192,14 +192,14 @@ public class PentominoZIPDLX {
    * rows i with 1 element in column c will no longer be found in other column lists than c so
    * column c and rows i are invisible after execution of cover
    * 
-   * @param DLXNode c: kopfTeil element of column that has to be covered
+   * @param DLXNodeOld2 c: kopfTeil element of column that has to be covered
    *
    */
-  public static void cover(DLXNode c) { // remove column c
+  public static void cover(DLXNodeOld2 c) { // remove column c
     c.R.L = c.L; // remove header
     c.L.R = c.R; // .. from row list
-    for (DLXNode i = c.D; i != c; i = i.D) // forall rows with 1
-      for (DLXNode j = i.R; i != j; j = j.R) { // forall elem in row
+    for (DLXNodeOld2 i = c.D; i != c; i = i.D) // forall rows with 1
+      for (DLXNodeOld2 j = i.R; i != j; j = j.R) { // forall elem in row
         j.D.U = j.U; // remove row element
         j.U.D = j.D; // .. from column list
       }
@@ -209,11 +209,11 @@ public class PentominoZIPDLX {
    * uncover "uncovers" a column c of the DLX matrix all operations of cover are undone so column c
    * and rows i are visible again after execution of uncover
    * 
-   * @param DLXNode c: kopfTeil element of column that has to be uncovered
+   * @param DLXNodeOld2 c: kopfTeil element of column that has to be uncovered
    */
-  public static void uncover(DLXNode c) {// undo remove col c
-    for (DLXNode i = c.U; i != c; i = i.U) // forall rows with 1
-      for (DLXNode j = i.L; i != j; j = j.L) { // forall elem in row
+  public static void uncover(DLXNodeOld2 c) {// undo remove col c
+    for (DLXNodeOld2 i = c.U; i != c; i = i.U) // forall rows with 1
+      for (DLXNodeOld2 j = i.L; i != j; j = j.L) { // forall elem in row
         j.D.U = j; // un-remove row elem
         j.U.D = j; // .. to column list
       }
