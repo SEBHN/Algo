@@ -96,7 +96,7 @@ class DLXNode { // represents 1 element or header
     h.posH = 0;
     h.posV = 0;
 
-    n = 3;
+    n = 2;
 
     matrixLine = 1;
     maxNumber = n * 6;
@@ -130,7 +130,7 @@ class DLXNode { // represents 1 element or header
     calcL_R7();
 
     long ende = System.nanoTime();
-    System.out.println((ende - start) / 10000 + "ms for matrix generation");
+    System.out.println((ende - start) / 100000 + "ms for matrix generation");
 
     // DLXNodeOld node = h.R;
     // for (int i = 0; i < maxNumber + 1; i++) {
@@ -436,9 +436,9 @@ class DLXNode { // represents 1 element or header
     DLXNode[] array = new DLXNode[5];
     int arrayIndex = 0;
     for (Integer integer : figures) {
-      // addNode(matrixLine, integer);
-      array[arrayIndex] = createNode(matrixLine, integer);
-      arrayIndex++;
+      addNode(matrixLine, integer);
+      // array[arrayIndex] = createNode(matrixLine, integer);
+      // arrayIndex++;
     }
     createLine(array);
     matrixLine++;
@@ -450,9 +450,9 @@ class DLXNode { // represents 1 element or header
     for (int j = 0; j < figures.size(); j++) {
       int elementPlusOne = figures.get(j) + 1;
       figures.set(j, elementPlusOne);
-      // addNode(matrixLine, elementPlusOne);
-      array[arrayIndex] = createNode(matrixLine, elementPlusOne);
-      arrayIndex++;
+      addNode(matrixLine, elementPlusOne);
+      // array[arrayIndex] = createNode(matrixLine, elementPlusOne);
+      // arrayIndex++;
     }
     createLine(array);
     matrixLine++;
@@ -466,10 +466,10 @@ class DLXNode { // represents 1 element or header
       current += 6;
       plusSixFigures.set(j, current);
 
-      // addNode(matrixLine, current);
+      addNode(matrixLine, current);
 
-      array[arrayIndex] = createNode(matrixLine, current);
-      arrayIndex++;
+      // array[arrayIndex] = createNode(matrixLine, current);
+      // arrayIndex++;
     }
     createLine(array);
     matrixLine++;
@@ -506,7 +506,7 @@ class DLXNode { // represents 1 element or header
   }
 
   private static DLXNode createNode(int posV, int posH) {
-    System.out.println("add node: posV=" + posV + " posH=" + posH);
+    // System.out.println("add node: posV=" + posV + " posH=" + posH);
     DLXNode node = new DLXNode();
     node.posV = posV;
     node.posH = posH;
