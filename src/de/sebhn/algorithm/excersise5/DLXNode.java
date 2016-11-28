@@ -96,7 +96,7 @@ class DLXNode { // represents 1 element or header
     h.posH = 0;
     h.posV = 0;
 
-    n = 2;
+    n = 3;
 
     matrixLine = 1;
     maxNumber = n * 6;
@@ -433,29 +433,45 @@ class DLXNode { // represents 1 element or header
   }
 
   private static void insertFigure(List<Integer> figures) {
+    DLXNode[] array = new DLXNode[5];
+    int arrayIndex = 0;
     for (Integer integer : figures) {
-      addNode(matrixLine, integer);
+      // addNode(matrixLine, integer);
+      array[arrayIndex] = createNode(matrixLine, integer);
+      arrayIndex++;
     }
+    createLine(array);
     matrixLine++;
   }
 
   private static void shiftDown(List<Integer> figures) {
+    DLXNode[] array = new DLXNode[5];
+    int arrayIndex = 0;
     for (int j = 0; j < figures.size(); j++) {
       int elementPlusOne = figures.get(j) + 1;
       figures.set(j, elementPlusOne);
-      addNode(matrixLine, elementPlusOne);
+      // addNode(matrixLine, elementPlusOne);
+      array[arrayIndex] = createNode(matrixLine, elementPlusOne);
+      arrayIndex++;
     }
+    createLine(array);
     matrixLine++;
   }
 
   private static void shiftOneRight(List<Integer> plusSixFigures) {
+    DLXNode[] array = new DLXNode[5];
+    int arrayIndex = 0;
     for (int j = 0; j < plusSixFigures.size(); j++) {
       Integer current = plusSixFigures.get(j);
       current += 6;
       plusSixFigures.set(j, current);
 
-      addNode(matrixLine, current);
+      // addNode(matrixLine, current);
+
+      array[arrayIndex] = createNode(matrixLine, current);
+      arrayIndex++;
     }
+    createLine(array);
     matrixLine++;
   }
 
@@ -490,6 +506,7 @@ class DLXNode { // represents 1 element or header
   }
 
   private static DLXNode createNode(int posV, int posH) {
+    System.out.println("add node: posV=" + posV + " posH=" + posH);
     DLXNode node = new DLXNode();
     node.posV = posV;
     node.posH = posH;
@@ -498,7 +515,8 @@ class DLXNode { // represents 1 element or header
 
   private static void createLine(DLXNode[] array) {
     for (int i = 0; i < array.length; i++) {
-      array[i].U = gotoIndex(array[i].posH).U;
+      array[i].C = gotoHeaderIndex(array[i].posH);
+      array[i].U = gotoHeaderIndex(array[i].posH).U;
       gotoHeaderIndex(array[i].posH).U.D = array[i];
       array[i].D = gotoHeaderIndex(array[i].posH);
       gotoHeaderIndex(array[i].posH).U = array[i];
