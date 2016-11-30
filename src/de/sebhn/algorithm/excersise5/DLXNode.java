@@ -96,7 +96,7 @@ class DLXNode { // represents 1 element or header
     h.posH = 0;
     h.posV = 0;
 
-    n = 2;
+    n = 6;
 
     matrixLine = 1;
     maxNumber = n * 6;
@@ -114,8 +114,9 @@ class DLXNode { // represents 1 element or header
 
 
     long start = System.nanoTime();
+    createMono();
     calcCross();
-    calcMono();
+    // calcMono();
     calcU_UP();
     calcU_DOWN();
     calcU_LEFT();
@@ -411,6 +412,22 @@ class DLXNode { // represents 1 element or header
     }
   }
 
+  public static void createMono() {
+    for (int i = 0; i < maxNumber; i++) {
+      DLXNode node = new DLXNode();
+      node.posH = i + 1;
+      node.posV = matrixLine;
+      System.out.println("add node: posV=" + node.posV + " posH=" + node.posH);
+      matrixLine++;
+
+      node.C = gotoHeaderIndex(node.posH);
+      node.U = gotoHeaderIndex(node.posH).U;
+      gotoHeaderIndex(node.posH).U.D = node;
+      gotoHeaderIndex(node.posH).U = node;
+      node.D = node.C;
+    }
+  }
+
   private static void calculateFiguresPosition(List<Integer> figures, int downShifts, int width) {
     int shiftsRight = n - width;
     if (shiftsRight > n || shiftsRight < 0) {
@@ -436,9 +453,9 @@ class DLXNode { // represents 1 element or header
     DLXNode[] array = new DLXNode[5];
     int arrayIndex = 0;
     for (Integer integer : figures) {
-      addNode(matrixLine, integer);
-      // array[arrayIndex] = createNode(matrixLine, integer);
-      // arrayIndex++;
+      // addNode(matrixLine, integer);
+      array[arrayIndex] = createNode(matrixLine, integer);
+      arrayIndex++;
     }
     createLine(array);
     matrixLine++;
@@ -450,9 +467,9 @@ class DLXNode { // represents 1 element or header
     for (int j = 0; j < figures.size(); j++) {
       int elementPlusOne = figures.get(j) + 1;
       figures.set(j, elementPlusOne);
-      addNode(matrixLine, elementPlusOne);
-      // array[arrayIndex] = createNode(matrixLine, elementPlusOne);
-      // arrayIndex++;
+      // addNode(matrixLine, elementPlusOne);
+      array[arrayIndex] = createNode(matrixLine, elementPlusOne);
+      arrayIndex++;
     }
     createLine(array);
     matrixLine++;
@@ -466,10 +483,10 @@ class DLXNode { // represents 1 element or header
       current += 6;
       plusSixFigures.set(j, current);
 
-      addNode(matrixLine, current);
+      // addNode(matrixLine, current);
 
-      // array[arrayIndex] = createNode(matrixLine, current);
-      // arrayIndex++;
+      array[arrayIndex] = createNode(matrixLine, current);
+      arrayIndex++;
     }
     createLine(array);
     matrixLine++;
@@ -506,7 +523,7 @@ class DLXNode { // represents 1 element or header
   }
 
   private static DLXNode createNode(int posV, int posH) {
-    // System.out.println("add node: posV=" + posV + " posH=" + posH);
+    System.out.println("add node: posV=" + posV + " posH=" + posH);
     DLXNode node = new DLXNode();
     node.posV = posV;
     node.posH = posH;
@@ -515,18 +532,30 @@ class DLXNode { // represents 1 element or header
 
   private static void createLine(DLXNode[] array) {
     for (int i = 0; i < array.length; i++) {
+      /**
+       * chain up down
+       */
       array[i].C = gotoHeaderIndex(array[i].posH);
       array[i].U = gotoHeaderIndex(array[i].posH).U;
       gotoHeaderIndex(array[i].posH).U.D = array[i];
       array[i].D = gotoHeaderIndex(array[i].posH);
       gotoHeaderIndex(array[i].posH).U = array[i];
       if (i == 0) {
+        /**
+         * chain left right for first element
+         */
         array[i].L = array[array.length - 1];
         array[i].R = array[i + 1];
       } else if (i == array.length - 1) {
+        /**
+         * chain left right for last element
+         */
         array[i].L = array[i - 1];
         array[i].R = array[0];
       } else {
+        /**
+         * chain left right for other elements
+         */
         array[i].L = array[i - 1];
         array[i].R = array[i + 1];
       }
