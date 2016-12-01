@@ -96,7 +96,7 @@ class DLXNode { // represents 1 element or header
     h.posH = 0;
     h.posV = 0;
 
-    n = 6;
+    n = 5;
 
     matrixLine = 1;
     maxNumber = n * 6;
@@ -143,7 +143,7 @@ class DLXNode { // represents 1 element or header
     search(0);
     ende = System.nanoTime();
     System.out.println((ende - start) / 1000000000 + "s for search");
-    System.out.println(cnt);
+    System.out.println(matrixLine + " possible solutions");
   }
 
   /**
@@ -417,7 +417,7 @@ class DLXNode { // represents 1 element or header
       DLXNode node = new DLXNode();
       node.posH = i + 1;
       node.posV = matrixLine;
-      System.out.println("add node: posV=" + node.posV + " posH=" + node.posH);
+      // System.out.println("add node: posV=" + node.posV + " posH=" + node.posH);
       matrixLine++;
 
       node.C = gotoHeaderIndex(node.posH);
@@ -523,7 +523,7 @@ class DLXNode { // represents 1 element or header
   }
 
   private static DLXNode createNode(int posV, int posH) {
-    System.out.println("add node: posV=" + posV + " posH=" + posH);
+    // System.out.println("add node: posV=" + posV + " posH=" + posH);
     DLXNode node = new DLXNode();
     node.posV = posV;
     node.posH = posH;
