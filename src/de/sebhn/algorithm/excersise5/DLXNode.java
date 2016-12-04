@@ -10,6 +10,10 @@ import java.util.List;
  * left right neigbors, and column header can also be used as colm header or root of column headers
  * matrix is sparsely coded try to do all operations very efficiently see:
  * http://en.wikipedia.org/wiki/Dancing_Links http://arxiv.org/abs/cs/0011047
+ * 
+ * @author Phi Long Tran <191624>
+ * @author Dimitri Kapcikov <191510>
+ * @author Manuel Wessner <191711>
  */
 class DLXNode { // represents 1 element or header
 
