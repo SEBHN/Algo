@@ -99,7 +99,19 @@ class DLXNode { // represents 1 element or header
     h.posH = 0;
     h.posV = 0;
 
-    n = 2;
+    // n = 2;
+
+    if (args.length == 0) {
+      System.out.println("No arguments - use default n=2");
+      n = 2;
+    } else {
+      try {
+        n = Integer.parseInt(args[0]);
+      } catch (NumberFormatException nfe) {
+        System.out.println("Argument is not a number, use default n=2. Error-Message: " + nfe);
+        n = 2;
+      }
+    }
 
     matrixLine = 1;
     maxNumber = n * 6;
@@ -116,6 +128,9 @@ class DLXNode { // represents 1 element or header
      */
 
 
+    /**
+     * calculate all figure positions
+     */
     long start = System.nanoTime();
     createMono();
     calcCross();
@@ -142,6 +157,9 @@ class DLXNode { // represents 1 element or header
     // node = node.R;
     // }
 
+    /**
+     * enter DLX search
+     */
     start = System.nanoTime();
     search(0);
     ende = System.nanoTime();
@@ -206,6 +224,12 @@ class DLXNode { // represents 1 element or header
     return true;
   }
 
+  /**
+   * old version, not used anymore, using gotoheaderindex instead
+   * 
+   * @param posH goto horizontal position
+   * @return node
+   */
   private static DLXNode gotoIndex(int posH) {
     DLXNode node = new DLXNode();
     node = h.R;
@@ -215,10 +239,22 @@ class DLXNode { // represents 1 element or header
     return node;
   }
 
+  /**
+   * go to header position
+   * 
+   * @param posH goto horizontal position
+   * @return header node
+   */
   private static DLXNode gotoHeaderIndex(int posH) {
     return headers[posH];
   }
 
+  /**
+   * old add node position, not used anymore, using create node instead
+   * 
+   * @param posV vertical position of the node
+   * @param posH horizontal position of the node
+   */
   private static void addNode(int posV, int posH) {
     System.out.println("add node: posV=" + posV + " posH=" + posH);
     DLXNode node = new DLXNode();
@@ -264,6 +300,11 @@ class DLXNode { // represents 1 element or header
     }
   }
 
+  /**
+   * connect node horizontal to right, not used anymore
+   * 
+   * @param node
+   */
   public static void connectRight(DLXNode node) {
     // connection to the right
     int posV = node.posV;
@@ -285,6 +326,11 @@ class DLXNode { // represents 1 element or header
     }
   }
 
+  /**
+   * connect node to the left, not used anymore
+   * 
+   * @param node
+   */
   public static void connectLeft(DLXNode node) {
     // connection to the right
     int posV = node.posV;
@@ -306,6 +352,9 @@ class DLXNode { // represents 1 element or header
     }
   }
 
+  /**
+   * here we are calculating all the figures
+   */
   public static void calcCross() {
     int a = 2;
     int b = 7;
@@ -408,6 +457,9 @@ class DLXNode { // represents 1 element or header
 
 
 
+  /**
+   * old mono calculation
+   */
   public static void calcMono() {
     for (int i = 0; i < maxNumber; i++) {
       addNode(matrixLine, i + 1);
@@ -415,6 +467,9 @@ class DLXNode { // represents 1 element or header
     }
   }
 
+  /**
+   * newer more robust mono calculation, but might be overkill
+   */
   public static void createMono() {
     for (int i = 0; i < maxNumber; i++) {
       DLXNode node = new DLXNode();
@@ -431,6 +486,13 @@ class DLXNode { // represents 1 element or header
     }
   }
 
+  /**
+   * calculation algo for the figures
+   * 
+   * @param figures
+   * @param downShifts
+   * @param width
+   */
   private static void calculateFiguresPosition(List<Integer> figures, int downShifts, int width) {
     int shiftsRight = n - width;
     if (shiftsRight > n || shiftsRight < 0) {
@@ -495,6 +557,12 @@ class DLXNode { // represents 1 element or header
     matrixLine++;
   }
 
+  /**
+   * old algo for calculating all figure positions
+   * 
+   * @param figures
+   * @param downShifts
+   */
   private static void calculateFiguresPosition(List<Integer> figures, int downShifts) {
     insertFigure(figures);
     DLXNode[] al = new DLXNode[5];
@@ -525,6 +593,13 @@ class DLXNode { // represents 1 element or header
     }
   }
 
+  /**
+   * node is created with this method
+   * 
+   * @param posV
+   * @param posH
+   * @return
+   */
   private static DLXNode createNode(int posV, int posH) {
     // System.out.println("add node: posV=" + posV + " posH=" + posH);
     DLXNode node = new DLXNode();
@@ -533,6 +608,11 @@ class DLXNode { // represents 1 element or header
     return node;
   }
 
+  /**
+   * creates a line for the five nodes and connects them.
+   * 
+   * @param array
+   */
   private static void createLine(DLXNode[] array) {
     for (int i = 0; i < array.length; i++) {
       /**
