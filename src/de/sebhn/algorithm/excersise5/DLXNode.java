@@ -1,5 +1,6 @@
 package de.sebhn.algorithm.excersise5;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -35,12 +36,14 @@ class DLXNode { // represents 1 element or header
    * @param int k: number of level
    *
    */
+  static BigInteger count = new BigInteger("0");
   static int cnt;
   static DLXNode h;
 
   public static void search(int k) { // finds & counts solutions
     if (h.R == h) {
-      cnt++;
+      count = count.add(BigInteger.ONE);
+      // cnt++;
       return;
     } // if empty: count & done
     DLXNode c = h.R; // choose next column c
@@ -96,7 +99,7 @@ class DLXNode { // represents 1 element or header
     h.posH = 0;
     h.posV = 0;
 
-    n = 5;
+    n = 2;
 
     matrixLine = 1;
     maxNumber = n * 6;
@@ -143,7 +146,7 @@ class DLXNode { // represents 1 element or header
     search(0);
     ende = System.nanoTime();
     System.out.println((ende - start) / 1000000000 + "s for search");
-    System.out.println(matrixLine + " possible solutions");
+    System.out.println(count + " possible solutions");
   }
 
   /**
@@ -431,7 +434,7 @@ class DLXNode { // represents 1 element or header
   private static void calculateFiguresPosition(List<Integer> figures, int downShifts, int width) {
     int shiftsRight = n - width;
     if (shiftsRight > n || shiftsRight < 0) {
-      System.out.println("no positions, cant fit figure");
+      // System.out.println("no positions, cant fit figure");
       return;
     }
     insertFigure(figures);
