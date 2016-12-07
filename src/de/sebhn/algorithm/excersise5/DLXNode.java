@@ -229,21 +229,6 @@ class DLXNode { // represents 1 element or header
   }
 
   /**
-   * old version, not used anymore, using gotoheaderindex instead
-   * 
-   * @param posH goto horizontal position
-   * @return node
-   */
-  private static DLXNode gotoIndex(int posH) {
-    DLXNode node = new DLXNode();
-    node = h.R;
-    for (int i = 0; i < posH; i++) {
-      node = node.R;
-    }
-    return node;
-  }
-
-  /**
    * go to header position
    * 
    * @param posH goto horizontal position
@@ -559,42 +544,6 @@ class DLXNode { // represents 1 element or header
     }
     createLine(array);
     matrixLine++;
-  }
-
-  /**
-   * old algo for calculating all figure positions
-   * 
-   * @param figures
-   * @param downShifts
-   */
-  private static void calculateFiguresPosition(List<Integer> figures, int downShifts) {
-    insertFigure(figures);
-    DLXNode[] al = new DLXNode[5];
-    int arrayIndex = 0;
-
-    for (int i = 0; i <= downShifts; i++) {
-      ArrayList<Integer> plusSixFigures = new ArrayList<>(figures);
-      int currentMaxHorizontal = plusSixFigures.get(plusSixFigures.size() - 1) + 6;
-      while (currentMaxHorizontal <= maxNumber) {
-        shiftOneRight(plusSixFigures);
-        currentMaxHorizontal = plusSixFigures.get(plusSixFigures.size() - 1) + 6;
-      }
-
-      int currentMaxVertical = figures.get(figures.size() - 2) + 1;
-      boolean hasNotReachedVerticalEnd = currentMaxVertical < 13;
-      for (int j = 0; j < figures.size() && hasNotReachedVerticalEnd; j++) {
-        int elementPlusOne = figures.get(j) + 1;
-        figures.set(j, elementPlusOne);
-        // addNode(matrixLine, elementPlusOne);
-        al[arrayIndex] = createNode(matrixLine, elementPlusOne);
-        arrayIndex++;
-      }
-      if (hasNotReachedVerticalEnd) {
-        matrixLine++;
-        createLine(al);
-      }
-      al = new DLXNode[5];
-    }
   }
 
   /**
